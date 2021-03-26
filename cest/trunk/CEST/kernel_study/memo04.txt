@@ -1,0 +1,201 @@
+カーネル勉強会第４回目　8/30　メモ　小川清
+
+個人的なメモ
+１
+#後ろで、ARMのデモをしていた。
+#ARMには、ARMの固有の課題があるらしい。
+#話をメモできなかった、、、
+
+２
+デバッグするには、デバッグされる側の内容をどこかに保存するとよい。
+スタックに積むには、デバッグされる側が使わないところへ積まないといけない。
+スタックポインタ、デバッグする側が使うレジスタの退避、復元を、CPU側が行うか、
+ソフトウェアで記述する必要があるか。
+SHの場合、ハードウェアでやらない部分は、ソフトウェアで実現。
+どんな場合でも有効な方法は、まだ？
+３
+#Cpu_support.Sが新しくなっているが、$IDのバージョン、日付が変わっていない。
+#　各バージョンで何を変更したかを、簡単に記述してほしい。
+#過去の経過が書かれていると、どこを試験するとよいか、どこを改良できる可能性が
+あるかの見通しがつき易い。
+#偏見を持つ可能性はあるが、それは自分の課題
+
+Hex(char)が、asciiコード依存の処理をしている。
+GCCを-hitachiオプションをつけないでコンパイルする場合に変更。
+
+４　GCC
+SH用のGCCの完成度、開発プロジェクトを調べようと思いましたが、
+うまくいきあたりませんでした。
+#CVSをインストールしてから出直します。
+http://gcc.gnu.org/
+SH用は、platformには掲載されていない。
+http://www.sh-linux.org/index-j.html
+http://linuxsh.sourceforge.net/
+http://www.hitachi-ul.co.jp/SH-SE/LNX/intro.html
+http://www.m17n.org/linux-sh/
+http://www.m17n.org/linux-sh/debian/
+
+http://village.infoweb.ne.jp/~anoda/fox/gcc.htm
+http://www.ops.dti.ne.jp/~coredump/
+
+http://www.apnet.co.jp/hghome/techinfo/columun/index.html
+http://www.kyoto-microcomputer.co.jp/exegcc/index.htm
+http://minixsh.tripod.co.jp/DL11_J.html
+http://www.netbsd.org/Ports/hpcarm/
+http://www.netbsd.org/Ports/hpcsh/
+
+CVS
+http://www.cvshome.org/
+http://www.wincvs.org/download.html
+http://dev.scriptics.com/software/tcltk/downloadnow83.html
+
+#Play Station 2(まったく関係ない)
+#http://ps2hacking.sourceforge.net/
+#http://www.anarchists.co.uk/html/psx2.html
+#http://developer.hima.gr.jp/playstation2/
+#http://kvaks.webjump.com/ ??
+#http://ps2bios.webjump.com/ ??
+
+------勉強会メモ
+４．４makeoffset.c
+Make 参照
+Makeoffset.c
+GCCでコンパイル
+Perlのスクリプト
+
+GCCのインラインasmは、%以外は、そのまま出力するのを、応用。
+
+保守性を高める。
+計算して書き直すのでは、２箇所を直さなくてはならない。
+構造体の管理
+
+セルフ環境ならよいが、
+ホスト環境での配置と、ターゲット環境での配置と
+
+割り込み
+define inh関数
+アセンブラ中、％は”r”(inhno), “r”(interrupt), 
+“r0”, “r4”,”r5”は、アセンブラで使う。
+%0 inhnoの入っているレジスタ
+%1 inthdrの入っているレジスタ
+“r”不特定レジスタが指定できる。
+
+SHでは割り込みベクタがないので、
+INTテーブルでハンドラと管理する。
+STUBがあると、どう分担するか。
+先にカーネルに取らせるか、先にSTUBに取らせるかのどちらか。
+今回は、先にSTUBが取る。
+STUBはSTUBのテーブルを呼び、
+レジスタの状態は、STUBどちらから呼んでも、なるべく同じようにしている。
+レジスタが壊れているのは、何本かをSTUBが使う。それはRO
+JSPのインタラプトで、、、
+
+ソフトウェアの割り込みと、
+ハードウェアの割り込みが
+割り込み優先レジスタ
+STUBを外すと，プログラムのロードができない。
+STUBを外したときの動作をそれほど確認していない。
+
+Task_intmaskは単なる変数？
+Task_intmaskを変えているだけなのに、t_lock_cpu()をするのは、過剰防衛か。
+Lockしておいて、unlockでtaks_intmaskで設定できる。
+割り込みが入ると、代入すべきものとの一貫性がどうなるか。
+
+２つのものを読むときは、一貫性がなくなるので、割り込みは禁止しないといけない。
+しかし、１つのものを読むだけなら、
+get_ipmでは、たぶん、lockはしなくてもよい。
+
+走ったよしよしではだめ。
+めったに起きないことは、どうしたらいいかわからないので、
+最初に１０倍余分に考えた方がよい。
+
+486行は、遅延スロットなので、必ずインクリメントする。
+_Stqck_topは。割り込みが入ったときのスタックの先頭。
+
+Stackをどちらが上にするか、注意しよう。
+矢印を書く。
+
+499行
+バンク０、ブロックビット０、割り込みをあける。
+
+マクロにする。
+502行
+__mask_md_ipm_ret
+
+割り込みの入り口で、ブロックビットがたっていれば、
+出口でも禁止されていないと、
+548行目あたりで、より優先度の高い割り込みがあるとまずいので、
+ssrを戻す前に、ブロックビットをたてたい。どこでたてるとよいか。
+
+ブロックビットとレベルが別にあるのか？
+ブロックビットは、例外も防げる。
+ブロックビットがたっているときに、
+NMIが起きたときに、
+
+CISCだと、出入り口で命令がたくさんある。
+
+STUB
+　Roに命令を入れ
+R4に例外要因番号
+r5ハンドラアドレス
+tapa #0x3f
+
+
+SHは、ステップ実行命令はない。
+
+brake pointは、Stubが命令を読んで、trapaを埋め込み、実行する。
+止まった瞬間に、ｇをやり、全部読み込む。
+復帰前に、命令を書き込んで、PCを戻して、実行
+
+76行
+1f
+131行の1: .long SYMBOL_NAME(init_bsc)
+
+GNUでは、遅延スロットは下げる。
+
+なぜ、２回キャッシュを操作しているか、不明。７１行と８１行
+
+trap a
+のaは、allways
+
+tlb_miss, VBR+400
+general_exception, VBR+100
+interrupt, VBR+600
+
+STUBの場合とカーネル
+With STUBの場合は、
+カーネルはSTUBのVBRを使わない。STUBは、STUBのVBR。
+カーネルが直接STUBのVBRを使うわけではない。
+同じ番地におかれるかどうか。
+
+Entry.S
+.baling 256,0,256は、0x100になる。
+Org 0x100
+と書き方が違う。　
+
+Cpu_support.S
+91行で、いきなりスタックに積んでいいか？
+SPC、SSRを、特定の裏レジに保存し、ブロックを空けて、仕事をすれば、いいが、裏レ
+ジを壊す。
+ブロックビットが立っているときに、スタックに積むのに、積む
+
+デバッグしていて、いきなりリセットかかるとつらい。
+STUBも正しく判定できない。
+
+Open posix
+Fopon ansi
+
+流れ
+
+レジスタを退避
+メインルーチン
+
+プリエンプティブ、プリエンプタブル問題
+
+priemptive
+priemptive task
+priemptive schedule
+priemptable task
+preemptive taskとは意味が逆。
+
+コンティニュー

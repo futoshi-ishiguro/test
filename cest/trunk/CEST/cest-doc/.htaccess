@@ -1,0 +1,9 @@
+AuthType	Basic
+AuthName	CEST
+AuthUserFile	/home/httpd/htdocs/CEST/cest-doc/.htpasswd
+AuthGroupFile	/home/httpd/admin/group
+require user	cest-196
+
+<FilesMatch "^\.ht.*">
+deny from all
+</FilesMatch>

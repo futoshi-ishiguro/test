@@ -1,0 +1,436 @@
+リアルタイムカーネル勉強会 準備資料
+
+                           プロセッサ非依存部5
+                         タイマーキュー・時間管理
+                                                                2001年9月13日
+                                                                SRA 石川雅彦
+
+◎関連ファイル
+  ・./kernel/time_event.h   163 lines
+  ・./kernel/time_event.c   335 lines
+  ・./kernel/time_manage.c  124 lines
+  ・./kernel/cyclic.h        68 lines
+  ・./kernel/cyclic.c       161 lines
+
+◎モジュール一覧
+
+  time_event.h: タイムイベント管理モジュール(INLINE関数)
+    tmevtb_enqueue        タイムイベントブロックの登録（相対時間指定）
+    tmevtb_enqueue_evttim タイムイベントブロックの登録（イベント発生時刻指定）
+    tmevtb_dequeue        タイムイベントブロックの登録解除
+
+  time_event.c: タイムイベント管理モジュール
+    tmevt_initialize  タイマモジュールの初期化
+    tmevt_up          タイムイベントの挿入位置を上向きに探索
+    tmevt_down        タイムイベントの挿入位置を下向きに探索
+    tmevtb_insert     タイムイベントヒープへの登録
+    tmevtb_delete     タイムイベントヒープからの削除
+    tmevtb_delete_top タイムイベントヒープの先頭のノードの削除
+    isig_tim          タイムティックの供給
+
+  time_manage.c: システム時刻管理機能
+    set_tim           システム時刻の設定
+    get_tim           システム時刻の参照
+    vxget_tim         性能評価用システム時刻の参照
+
+  cyclic.c:  周期ハンドラ機能
+    tmevtb_enqueue_cyc  周期ハンドラ起動のためのタイムイベントブロックの登録
+    cyclic_initialize   周期ハンドラ機能の初期化
+    sta_cyc             周期ハンドラの動作開始
+    stp_cyc             周期ハンドラの動作停止
+    call_cychdr         周期ハンドラ起動ルーチン
+
+-------------------------------------------------------------------
+1. 時間管理機能 
+
+   ----- (μITRON4.0仕様書 4.7 (p.240) より引用)
+   時間管理機能は, 時間に依存した処理を行うための機能である.
+   システム時刻管理,周期ハンドラ,アラームハンドラ,オーバーランハンドラの
+   各機能が含まれる. 周期ハンドラ,アラームハンドラ,オーバーランハンドラを
+   総称して,タイムイベントハンドラと呼ぶ.
+   ----- (引用終り)
+
+   μITRON4.0仕様書 4.7 において、時間管理機能の解説は
+         4.7.1 システム時刻管理		     
+         4.7.2 周期ハンドラ
+         4.7.3 アラームハンドラ
+         4.7.4 オーバーランハンドラ
+   と続く. しかし, TOPPERS/JSP カーネルユーザズマニュアル(doc/user.txt) 
+   "2.6 タイムイベントハンドラ" によれば, JSPカーネルでは,タイムイベント
+   ハンドラとして，周期ハンドラのみをサポートしている．
+   したがってここではシステム時刻時刻管理, 周期ハンドラを取り上げる.
+
+1.1 システム時刻管理
+
+   ----- (μITRON4.0仕様書 4.7.1 (p.240) より引用.)
+   システム時刻管理機能は, システム時刻を操作するための機能である. システム時刻
+   を設定/参照する機能,タイムティックを供給してシステム時刻を更新する機能が
+   含まれる. 
+   ----- (引用終り)
+
+   この記述に従って、モジュールをみると以下のようになる.
+
+   システム時刻管理機能
+         システム時刻を設定する機能
+               set_tim(time_manage.c)
+         システム時刻を参照する機能
+               get_tim(time_manage.c)
+         タイムティックを供給してシステム時刻を更新する機能
+               isig_tim(time_event.c)
+
+    isig_tim は、タイムイベントヒープ操作を行うモジュールの集まりである
+    time_event.c にまとめられている.(タイムイベントヒープについては後述.)
+    
+1.2 タイムイベント管理 (time_event.h,time_event.c)
+
+   ----- (μITRON4.0仕様書 4.7.1 (p.240) より引用)
+   システム時刻は,システム初期化時に0に初期化し, 以後,アプリケーションによって
+   タイムティックを供給するサービスコール(isig_tim)が呼び出される度に更新する.
+   isig_timeが呼び出される度にシステム時刻をどれだけ更新するか,言い換えると
+   アプリケーションが isig_tim を呼び出すべき周期は,実装定義で定める.ただし, 
+   システム時刻を更新する機構をカーネル内部に持つことも可能で,その場合には,
+   isig_tim をサポートする必要はない.
+   システム時刻に依存して, タイムアウト処理, dly_tsk による時間経過待ち状態から
+   の解除,周期ハンドラの起動,アラームハンドラの起動の各処理を行う. 同じタイム
+   ティックで行うべき処理が複数ある場合,それらの実行順序は実装依存とする.
+   ----- (引用終り)
+
+1.2 (1) タイムイベントハンドラ
+   ----- ( doc/user.txt "2.6 タイムイベントハンドラ"より引用)
+     JSPカーネルでは，タイムイベントハンドラとして，周期ハンドラのみをサポー
+   トしている．周期ハンドラは，isig_timシステムコールの中から，サブルーチ
+   ンコールで呼び出される．そのため，周期ハンドラの優先順位は，isig_timを
+   呼び出した割込みハンドラよりも一つだけ高い（厳密に言うと，isig_timを呼
+   び出した割込みハンドラよりも高く，その割込みハンドラよりも高い優先順位
+   を持つ他のいずれの処理よりも低い）．
+   ----- (引用終り)
+
+1.2 (2) タイムイベントハンドラから isig_tim コールの仕組み
+
+   systask/timer.cfg:
+    1 /*
+    2  *  @(#) $Id: timer.cfg,v 1.1 2000/11/14 14:44:25 hiro Exp $
+    3  */
+    4
+    5 /*
+    6  *  システムクロックドライバのコンフィギュレーションファイル
+    7  */
+    8
+    9  INCLUDE("\"timer.h\"");
+   10  ATT_INI({ TA_HLNG, 0, timer_initialize });
+   11  DEF_INH(INHNO_TIMER, { TA_HLNG, timer_handler });
+
+   timer_hander()(systask/timer.c) ... isig_tim を呼び出した割込みハンドラ
+        |  
+        |--- hw_timer_int_clear()  
+        +--- isig_tim()  (time_event.c)
+
+    
+   "isig_timeが呼び出される度にシステム時刻をどれだけ更新するか,言い換えると
+   アプリケーションが isig_tim を呼び出すべき周期は,実装定義で定める."
+   とあるが TOPPERS/JSP では上記 DEF_INH の通り.
+
+1.2 (3) isig_tim のモジュール構成
+
+             isig_tim()  (time_event.c)
+                 |
+                 |--- i_lock_cpu
+                 |--- TMEVT_LE
+                 |--- TMEVT_NODE
+                 |--- tmevtb_delete_top()(time_event.c)
+                 |          |
+                 |          |---- TMEVT_NODE
+                 |            +---- tmevt_down(time_event.c)
+                 |
+                 |---- (*(tmevtb->callback))(tmevtb->arg);
+                 |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                 |     コールバック関数: ここに周期ハンドラが登録されている.
+                 |
+                 +--- i_lock_cpu
+
+
+1.2 (4) タイムイベントヒープ
+
+   isig_tim を読む前に、タイムイベントヒープについて説明する。
+   タイムイベントヒープはタイムイベントを登録するためのデータ構造であり、
+   タイムイベント管理を実現するためのデータ構造である.
+
+        #include "time_event.h"
+        TMEVTN	tmevt_heap[TNUM_TSKID + TNUM_CYCID];
+        % grep tmevt_heap cfg/*.cpp
+        cfg/toppers.cpp: (*out) << "#include \"time_event.h\"" << endl << "TMEVTN        tmevt_heap[TNUM_TSKID + TNUM_CYCID];" << endl << endl;
+        
+
+    タイムイベントヒープは 最大 (TNUM_TSKID + TNUM_CYCID)個のタイムイベント
+    (TOPPERS/JSPの場合は周期ハンドラ)を登録することができる.
+    登録されているタイムイベントの数は limit_index が保持しており、その数は
+    limit_index-1 である。
+
+    タイムイベントヒープのデータ構造は以下の通りである。
+     //
+     //
+     //
+     //  tmevt_heap[0]    +--TMEVTN--+<--------------------------------------+
+     //                   |  time    |                                       |
+     //                   |  *tmevtb |------------------------>+--TMEVTB--+  |
+     //                   +----------+<---------------------+  |  index   |--+
+     //                   |  time    |                      |  |*callback | 
+     //                   |  *tmevtb |------->+--TMEVTB--+  |  |   arg    |
+     //                   +----------+        | index    |--+  +----------+
+     //                   |  time    |        |*callback |                  
+     //                   |  *tmevtb |        | arg      |                   
+     //                   +----------+        +----------+
+     //                  ~~~~~~~~~~~~~~
+     //                  ~~~~~~~~~~~~~~
+     // TMEVT_NODE(index) +----------+
+     // (tmevt_heap       |  time    |
+     //      [(index)-1]) |  *tmevtb |
+     //                   +----------+
+     //
+
+    このタイムイベントヒープを操作するためのマクロが time_event.c には
+    以下のように定義されている。
+    77	#define	PARENT(index)	((index) >> 1)	/* 親ノードを求める */
+    78	#define	LCHILD(index)	((index) << 1)	/* 右の子ノードを求める */
+    79	#define	TMEVT_NODE(index)	(tmevt_heap[(index) - 1])
+
+
+1.2 (5) その他タイムイベント管理モジュールのモジュール構成図
+
+   time_event.c のモジュール構成図を作成し、タイムイベントヒープ操作の視点
+   からながめておくと、カーネル閲読の見通しがよくなると思われる.
+
+kernel_start(kernel/startup.c)
+   |----cpu_initialize
+   |----sys_initialize
+   |----tmevt_initialize(time_event.c)
+   |    /*  タイムイベント管理モジュールは他のモジュールより先に初期化
+   | 	 *  する必要がある．
+   |     */
+   |----object_initialize
+   +----call_inirtn
+
+(dly_tsk(task_sync.c), make_wait_tmout(wait.c))
+  |
+  +--tmevtb_enqueue(time_event.h)
+         |
+         +--- tmevtb_insert(time_event.c)
+                  |
+                  +----tmevt_up(UINT index, EVTTIM time)(time_event.c)
+                           |  タイムイベントの挿入位置を上向きに探索
+                           |---- PARENT
+                           |---- TMEVT_NODE
+                           +---- EVTTIM_LE
+
+tmevtb_enqueue_evttim(time_event.h)
+      |
+      + --- tmevtb_insert(time_event.c)
+
+tmevtb_dequeue(time_event.h)
+      |
+      + --- tmevtb_delete(time_event.c)
+                |
+                |----- tmevt_up(time_event.c)
+                |
+                +----- tmevt_down(time_event.c)
+                           |
+                           |---- LCHILD
+                           |---- EVTTIM_LT
+                           |---- TMEVT_NODE
+                           +---- EVTTIM_LE
+
+1.2 (6) TIC_NUME と TIC_DENO
+
+   タイムティック周期は TIC_NUME と TIC_DENO という二つの define によって
+   決まる. TIC_NUME は タイムティック周期の分子(numerator)であり, TIC_DENOは
+   タイムティック周期の分母(denomidnattor)である.
+   つまり, TIC_NUME/TIC_DENO がタイムティック周期である。
+    TIC_NUME, TIC_DENO の単位は   1ミリ秒である.
+
+   ----- (doc/user.txt 3.6.1 "システム時刻管理" から引用.)
+   JSPカーネルでは，タイムティックの供給（isig_tim を周期的に呼び出す処理）
+   はシステムサービスのシステムクロックドライバによって実現している．シス
+   テムクロックドライバの主要部分は，ターゲット毎にハードウェアタイマを使っ
+   て実現されており，isig_tim を呼び出す周期はターゲット毎に定める．その
+   ため TIC_NUME と TIC_DENO は，ターゲット依存部のアプリケーション用のイ
+   ンクルードファイル（cpu_defs.h および sys_defs.h）の中で定義している．
+   ターゲットによっては，この数値を変更するだけで isig_tim を呼び出す周期
+   を変更できるように実装されている場合もある．詳しくは，ターゲット毎のマ
+   ニュアルを参照すること．
+   -----(引用終り)
+
+
+   TOPPERS/JSP に用意された、ターゲット毎の設定では TIC_NUME, TIC_DENO が
+   どのようになっているかをソースディレクトリの検索により調べる。
+
+   この調査にあたっては、TOPPERS/JSP パッケージのドキュメント,
+   doc/config.txt を参考にした。
+
+   ------ (doc/config.txt より引用)
+   １．アプリケーション用のインクルードファイル
+
+   ターゲット依存部で提供すべきアプリケーション用の定義は次の通りである．
+   これらの定義は，cpu_defs.h または sys_defs.h（またはそれらからインクル
+   ードされるファイル）に含める．
+
+   (1) タイムティックの定義
+
+   (1-1) TIC_NUME		タイムティックの周期の分子（単位: 1ミリ秒）
+   (1-2) TIC_DENO		タイムティックの周期の分母（単位: 1ミリ秒）
+   -----(引用終り)
+
+masa@cf-b5r% pwd
+/a10/itron/toppers/jsp
+masa@cf-b5r% ls
+CARDE09A/     LINUX/	    V850/	  include/	windev/
+CAT68701/     MS7709ASE01/  WINDOWS/	  kernel/
+DVE68K/       README	    cfg/	  libjsp/
+DVESH7700/    RSH3/	    config/	  systask/
+KZ_SH1/       TOKIWA_SH1/   doc/	  utils/
+
+masa@cf-b5r% grep TIC_ config/*/*/sys_defs.h config/*/cpu_defs.h | nkf -j
+config/m68k/dve68k/sys_defs.h:#define	TIC_NUME	1
+config/m68k/dve68k/sys_defs.h:#define	TIC_DENO	1
+config/sh1/kz_sh1/sys_defs.h:#define	TIC_NUME	1
+config/sh1/kz_sh1/sys_defs.h:#define	TIC_DENO	1
+config/sh1/tokiwa_sh1/sys_defs.h:#define	TIC_NUME	1
+config/sh1/tokiwa_sh1/sys_defs.h:#define	TIC_DENO	1
+config/sh3/card_e09a/sys_defs.h:#define	TIC_NUME	1
+config/sh3/card_e09a/sys_defs.h:#define	TIC_DENO	1
+config/sh3/cat68701/sys_defs.h:#define	TIC_NUME	1
+config/sh3/cat68701/sys_defs.h:#define	TIC_DENO	1
+config/sh3/dvesh7700/sys_defs.h:#define	TIC_NUME	1
+config/sh3/dvesh7700/sys_defs.h:#define	TIC_DENO	1
+config/sh3/ms7709ase01/sys_defs.h:#define	TIC_NUME	1
+config/sh3/ms7709ase01/sys_defs.h:#define	TIC_DENO	1
+config/sh3/rsh3/sys_defs.h:#define	TIC_NUME	1
+config/sh3/rsh3/sys_defs.h:#define	TIC_DENO	1
+config/v850/upd703000/sys_defs.h:#define	TIC_NUME	5
+config/v850/upd703000/sys_defs.h:#define	TIC_DENO	1
+config/linux/cpu_defs.h:#define	TIC_NUME	10
+config/linux/cpu_defs.h:#define	TIC_DENO	1	
+config/windows/cpu_defs.h:#define	TIC_NUME	TIMER_CLOCK_WINDOWS
+config/windows/cpu_defs.h:#define	TIC_DENO	1
+masa@cf-b5r%
+masa@cf-b5r% grep TIMER_CLOCK_WINDOWS config/windows/* | nkf -j
+config/windows/hw_timer.h:#define TIMER_CLOCK_WINDOWS		100
+
+この結果によれば, ほとんどのターゲットで タイムティックは 1ミリ秒である.
+v850 では 5ミリ秒, linux では 10ミリ秒, windows では 100ミリ秒であることが
+わかる.
+-------------------------------------------------------------------
+1.3 time_event.h を読む
+
+1.4 time_event.c を読む
+
+------------------------------------------------------
+2. システム時刻管理機能
+
+2.1 モジュール構成図
+
+set_tim(time_manage.c)
+   |
+   |---- CHECK_TSKCTX_UNL
+   |---- t_lock_cpu 
+   +---- t_unlock_cpu 
+
+get_tim(time_manage.c)
+   |
+   |---- CHECK_TSKCTX_UNL
+   |---- t_lock_cpu 
+   +---- t_unlock_cpu 
+
+vxget_tim(time_manage.c)
+   |
+   |---- CHECK_TSKCTX_UNL
+   |---- sense_lock
+   |---- t_lock_cpu 
+   |---- hw_timer_get_current();
+   |---- hw_timer_fetch_interrupt();
+   +---- t_unlock_cpu 
+
+
+2.2 time_manage.c を読む
+
+------------------------------------------------------
+3. 周期ハンドラ機能
+
+3.1 周期ハンドラ機能解説
+
+----- ( doc/user.txt "2.6 タイムイベントハンドラ"より引用)
+JSPカーネルでは，タイムイベントハンドラとして，周期ハンドラのみをサポー
+トしている．周期ハンドラは，isig_timシステムコールの中から，サブルーチ
+ンコールで呼び出される．そのため，周期ハンドラの優先順位は，isig_timを
+呼び出した割込みハンドラよりも一つだけ高い（厳密に言うと，isig_timを呼
+び出した割込みハンドラよりも高く，その割込みハンドラよりも高い優先順位
+を持つ他のいずれの処理よりも低い）．
+---- (引用終り)
+
+---- ("μITRON4.0仕様書 4.7.2 周期ハンドラ (p.245)" より引用)
+
+周期ハンドラは,一定周期で起動されるタイムイベントハンドラである.周期ハンドラ
+機能には,周期ハンドラを生成/削除する機能,周期ハンドラの動作を開始/停止する
+機能,周期ハンドラの状態を参照する機能が含まれる.周期ハンドラはID番号で識別
+されるオブジェクトである. 周期ハンドラのID番号を周期ハンドラIDと呼ぶ.
+周期ハンドラの起動周期と起動位相は,周期ハンドラの生成時に,周期ハンドラ毎に
+設定することができる.カーネルは,周期ハンドラの操作時に,設定された起動周期と
+起動位相から,周期ハンドラを次に起動すべき時刻を決定する.周期ハンドラの生成時
+には,周期ハンドラを生成した時刻に起動位相を加えた時刻を,次に起動すべき時刻
+とする.周期ハンドラを起動すべき時刻になると,その周期ハンドラの拡張情報(exinf)
+をパラメータとして,周期ハンドラを起動する.またこの時,周期ハンドラの起動
+すべき時刻に起動周期を加えた時刻を,次に起動すべき時刻とする.また,周期ハンドラ
+の動作を開始する時に,次に起動すべき時刻を決定しなおす場合がある.
+周期ハンドラの起動位相は,起動周期以下であることを原則とする.起動位相に,
+起動位相よりも長い時間が指定された場合の振舞いは,実装依存とする.
+周期ハンドラは,動作している状態か動作していない状態かのいずれかの状態をとる.
+周期ハンドラが動作していない状態の時には,周期ハンドラを起動すべき時刻となって
+も周期ハンドラを起動せず,次に起動すべき時刻の決定のみを行う.
+周期ハンドラの動作を開始するサービスコール(sta_cyc)が呼び出されると,
+周期ハンドラを動作している状態に移行させ,必要なら周期ハンドラを次に起動すべ
+き時刻を決定しなおす.周期ハンドラの動作を停止するサービスコール(stp_cyc)が
+呼び出されると,周期ハンドラを動作していない状態に移行させる.周期ハンドラを
+生成した後にどちらの状態になるかは,周期ハンドラ属性によって決めることができる.
+周期ハンドラの起動位相は,周期ハンドラを生成するサービスコールが呼び出された
+時刻(静的APIで生成する場合にはシステム初期化時)を基準に,周期ハンドラを最初に
+起動する時刻を指定する相対時間と解釈する.周期ハンドラの起動周期は,周期ハンドラ
+を(起動した時刻ではなく)起動すべきであった時刻を基準に,周期ハンドラを次に
+起動する時刻を指定する相対時間と解釈する.そのため,周期ハンドラが起動される時刻の感覚は,個々には起動周期よりも短くなる場合があるが,長い期間で平均すると起動
+周期に一致する.
+---- (引用終り)
+
+3.2 モジュール構成図
+
+tmevtb_enqueue_cyc(CYCCB *cyccb, EVTTIM evttim)
+     |
+     +--- tmevtb_enqueue_evttim(&(cyccb->tmevtb), evttim,
+
+cyclic_initialize()
+     |
+     +--- tmevtb_enqueue_cyc(cyccb, cyccb->cycinib->cycphs);
+
+sta_cyc(ID cycid)
+     |
+     |--- get_cyccb(cycid);
+     |--- t_lock_cpu();
+     |--- tmevtb_dequeue(&(cyccb->tmevtb)); (time_event.h)
+     |--- tmevtb_enqueue_cyc(cyccb, base_time + cyccb->cycinib->cyctim);
+     +--- t_unlock_cpu();
+
+stp_cyc(ID cycid)
+     |--- CHECK_TSKCTX_UNL();
+     |--- CHECK_CYCID(cycid);
+     |--- get_cyccb(cycid);
+     |--- t_lock_cpu();
+     |--- tmevtb_dequeue(&(cyccb->tmevtb));(time_event.h)
+     +--- t_unlock_cpu();
+
+call_cychdr(CYCCB *cyccb)
+     |--- tmevtb_enqueue_cyc(cyccb, cyccb->evttim + cyccb->cycinib->cyctim);
+     |--- i_unlock_cpu();
+     |--- (*cyccb->cycinib->cychdr)(cyccb->cycinib->exinf);
+     +--- i_lock_cpu();
+
+3.3  cyclic.h, cyclic.c を読む
+
+----- EOF
+

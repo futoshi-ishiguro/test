@@ -1,0 +1,5 @@
+AuthType	Basic
+AuthName	KERNEL_STUDY
+AuthUserFile	/home/httpd/admin/passwd
+AuthGroupFile	/home/httpd/admin/group
+require user	kernel_study

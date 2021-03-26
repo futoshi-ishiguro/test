@@ -1,0 +1,173 @@
+     1	/*
+     2	 *  TOPPERS/JSP Kernel
+     3	 *      Toyohashi Open Platform for Embedded Real-Time Systems/
+     4	 *      Just Standard Profile Kernel
+     5	 * 
+     6	 *  Copyright (C) 2000 by Embedded and Real-Time Systems Laboratory
+     7	 *                              Toyohashi Univ. of Technology, JAPAN
+     8	 * 
+     9	 *  上記著作権者は，以下の条件を満たす場合に限り，本ソフトウェア（本ソ
+    10	 *  フトウェアを改変したものを含む．以下同じ）を使用・複製・改変・再配
+    11	 *  布（以下，利用と呼ぶ）することを無償で許諾する．
+    12	 *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+    13	 *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+    14	 *      スコード中に含まれていること．
+    15	 *  (2) 本ソフトウェアをバイナリコードの形または機器に組み込んだ形で利
+    16	 *      用する場合には，次のいずれかの条件を満たすこと．
+    17	 *    (a) 利用に伴うドキュメント（利用者マニュアルなど）に，上記の著作
+    18	 *        権表示，この利用条件および下記の無保証規定を掲載すること．
+    19	 *    (b) 利用の形態を，別に定める方法によって，上記著作権者に報告する
+    20	 *        こと．
+    21	 *  (3) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+    22	 *      害からも，上記著作権者を免責すること．
+    23	 * 
+    24	 *  本ソフトウェアは，無保証で提供されているものである．上記著作権者は，
+    25	 *  本ソフトウェアに関して，その適用可能性も含めて，いかなる保証も行わ
+    26	 *  ない．また，本ソフトウェアの利用により直接的または間接的に生じたい
+    27	 *  かなる損害に関しても，その責任を負わない．
+    28	 * 
+    29	 *  @(#) $Id: cyclic.c,v 1.2 2000/12/22 07:53:11 hiro Exp $
+    30	 */
+    31	
+    32	/*
+    33	 *	周期ハンドラ機能
+    34	 */
+    35	
+    36	#include "jsp_kernel.h"
+    37	#include "check.h"
+    38	#include "cyclic.h"
+    39	
+    40	/*
+    41	 *  周期ハンドラIDの最大値（kernel_cfg.c）
+    42	 */
+    43	extern const ID	tmax_cycid;
+    44	
+    45	/*
+    46	 *  周期ハンドラ初期化ブロックのエリア（kernel_cfg.c）
+    47	 */
+    48	extern const CYCINIB	cycinib_table[];
+    49	
+    50	/*
+    51	 *  周期ハンドラ管理ブロックのエリア（kernel_cfg.c）
+    52	 */
+    53	extern CYCCB	cyccb_table[];
+    54	
+    55	/*
+    56	 *  周期ハンドラIDから周期ハンドラ管理ブロックを取り出すためのマクロ
+    57	 */
+    58	#define INDEX_CYC(cycid)	((cycid) - TMIN_CYCID)
+    59	#define get_cyccb(cycid)	(&(cyccb_table[INDEX_CYC(cycid)]))
+    60	
+    61	/*
+    62	 *  周期ハンドラ起動ルーチン (前方参照のための定義)
+    63	 */
+    64	static void	call_cychdr(CYCCB *cyccb);
+    65	
+    66	/*
+    67	 *  周期ハンドラ起動のためのタイムイベントブロックの登録
+    68	 */
+    69	static void
+    70	tmevtb_enqueue_cyc(CYCCB *cyccb, EVTTIM evttim)
+    71	{
+    72	
+    73		tmevtb_enqueue_evttim(&(cyccb->tmevtb), evttim,
+    74					(CBACK) call_cychdr, (VP) cyccb);
+    75		cyccb->evttim = evttim;
+    76	}
+    77	
+    78	/*
+    79	 *  周期ハンドラ機能の初期化
+    80	 */
+    81	void
+    82	cyclic_initialize()
+    83	{
+    84		INT	i;
+    85		CYCCB	*cyccb;
+    86	
+    87		for (cyccb = cyccb_table, i = 0; i < tmax_cycid; cyccb++, i++) {
+    88			cyccb->cycinib = &(cycinib_table[i]);
+    89			if ((cyccb->cycinib->cycatr & TA_STA) != 0) {
+    90				cyccb->cycsta = TRUE;
+    91				tmevtb_enqueue_cyc(cyccb, cyccb->cycinib->cycphs);
+    92			}
+    93			else {
+    94				cyccb->cycsta = FALSE;
+    95			}
+    96		}
+    97	}
+    98	
+    99	/*
+   100	 *  周期ハンドラの動作開始
+   101	 */
+   102	SYSCALL ER
+   103	sta_cyc(ID cycid)
+   104	{
+   105		CYCCB	*cyccb;
+   106	
+   107		CHECK_TSKCTX_UNL();
+   108		CHECK_CYCID(cycid);
+   109		cyccb = get_cyccb(cycid);
+   110	
+   111		t_lock_cpu();
+   112		if (cyccb->cycsta) {// if (cyccb->cycsta == TRUE) 
+   113			tmevtb_dequeue(&(cyccb->tmevtb));
+   114		}
+   115		else {
+   116			cyccb->cycsta = TRUE;
+   117		}
+   118		tmevtb_enqueue_cyc(cyccb, base_time + cyccb->cycinib->cyctim);
+   119		t_unlock_cpu();
+   120		return(E_OK);
+   121	}
+   122	
+   123	/*
+   124	 *  周期ハンドラの動作停止
+   125	 */
+   126	SYSCALL ER
+   127	stp_cyc(ID cycid)
+   128	{
+   129		CYCCB	*cyccb;
+   130	
+   131		CHECK_TSKCTX_UNL();
+          //	if (sense_context() || t_sense_lock()) {return(E_CTX);}	
+
+   132		CHECK_CYCID(cycid);
+      //    if (!VALID_CYCID(cycid)) {return(E_ID);}
+ // #define VALID_CYCID(cycid) (TMIN_CYCID <= (cycid) && (cycid) <= tmax_cycid)
+      // if (!((TMIN_CYCID <= (cycid) && (cycid) <= tmax_cycid)){return(E_ID);}
+      // VALID_CYCID, CHECK_CYCID (kernel/check.h)
+
+   133		cyccb = get_cyccb(cycid);
+   //   周期ハンドラ ID(cycid) に対応する周期ハンドラ管理ブロックを取得する
+   //  59 #define get_cyccb(cycid)	(&(cyccb_table[INDEX_CYC(cycid)]))
+   134	
+   135		t_lock_cpu();
+   136		if (cyccb->cycsta) {   // if (cyccb->cycsta == TRUE) 
+   137			cyccb->cycsta = FALSE;
+   138			tmevtb_dequeue(&(cyccb->tmevtb));
+   139		}
+   140		t_unlock_cpu();
+   141		return(E_OK);
+   142	}
+   143	
+   144	/*
+   145	 *  周期ハンドラ起動ルーチン
+   146	 */
+   147	static void
+   148	call_cychdr(CYCCB *cyccb)
+   149	{
+   150		/*
+   151		 *  次回の起動のためのタイムイベントブロックを登録する．
+   152		 */
+   153		tmevtb_enqueue_cyc(cyccb, cyccb->evttim + cyccb->cycinib->cyctim);
+   154	
+   155		/*
+   156		 *  周期ハンドラを，CPUロック解除状態で呼び出す．
+   157		 */
+   158		i_unlock_cpu();
+   159		(*cyccb->cycinib->cychdr)(cyccb->cycinib->exinf);
+   160		i_lock_cpu();
+   161	}
+
+
+

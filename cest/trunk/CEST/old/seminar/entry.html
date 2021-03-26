@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="ja"> 
+<HEAD>
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-2022-jp">
+  <TITLE>組込みシステム開発技術研究会 - Consortium for Embedded System Technology -</TITLE>
+  <LINK REL="CONTENTS" HREF="./index.html">
+  <LINK REL="StyleSheet" HREF="../style.css" TYPE="text/css">
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+  <META NAME="Author" CONTENT="CEST OFFICE">
+</HEAD>
+<BODY>
+
+  <H1>第9回CEST技術セミナー参加申込</H1>
+  下記フォームに入力し、申込ボタンを押してください。確認のメールをお送りします。
+  メールが届かなかった場合、<img src="../images/cest-mail.gif">までお問い合わせ下さい。
+  <form method="POST" action="entry.cgi">
+    <table>
+      <tr><td>名前</td>            <td><input size=60 type="text" name="name"></td></tr>
+      <tr><td>ふりがな</td>        <td><input size=60 type="text" name="furi"></td></tr>
+      <tr><td>郵便番号</td>        <td><input size=60 type="text" name="zip"> </td></tr>
+      <tr><td>住所</td>            <td><input size=60 type="text" name="addr"> </td></tr>
+      <tr><td>会社名</td>          <td><input size=60 type="text" name="com"> </td></tr>
+      <tr><td>部署名</td>          <td><input size=60 type="text" name="dept"> </td></tr>
+      <tr><td>役職名</td>          <td><input size=60 type="text" name="appo"> </td></tr>
+      <tr><td>電話番号</td>        <td><input size=60 type="text" name="tel"> </td></tr>
+      <tr><td>E-mailアドレス</td>  <td><input size=60 type="text" name="email"></td></tr>
+      <tr><td>会員種別</td>        <td><select name="type">
+                                         <option value="CEST会員">CEST会員
+                                         <option value="コンピュータ応用技術協会員">コンピュータ応用技術協会員
+                                         <option value="豊橋商工会議所 電子産業部会員">豊橋商工会議所 電子産業部会員
+                                         <option value="学生">学生
+                                         <option value="いずれにも該当せず">いずれにも該当せず
+                                       </select></td></tr>
+      <tr><td>懇親会</td>          <td>欠席(懇親会の申込は終了しました)</td><!--<td><select name="party">
+                                         <option value="出席">出席
+                                         <option value="欠席">欠席
+                                       </select></td></tr>
+                                       -->
+      <input type="hidden" name="party" value="欠席">
+      <tr><td>請求書の有無</td>    <td><select name="bill">
+                                         <option value="不要">不要
+                                         <option value="事前送付必要">事前送付必要（事務局から申込者へ郵送します）
+                                       </select></td></tr>
+      <tr><td>自由記載欄</td>      <td><textarea name="free" cols=40 rows=5></textarea></td></tr>
+<!--（１）参加者の情報は，以下が入力できること
+　・名前
+　・郵便番号
+　・住所
+　・会社名
+　・部署名
+　・役職名
+　・電話番号
+　・E-mailアドレス
+　・会員種別　プルダウンメニューで選択してください
+　　　・いずれにも該当せず
+　　　・CEST会員
+　　　・豊橋商工会議所 電子産業部会員
+　　　・コンピュータ応用技術協会員
+　　　・学生
+　・懇親会
+　・請求書の有無
+　　　・事前送付必要（事務局から申込者へ郵送します）
+　　　・不要
+　・備考
+　　　自由記入欄-->
+    </table>
+    <input type="hidden" name="mode" value="input">
+    <input type="submit" value="申込">
+  </form>
+  個人情報は適切に管理し，第9回CEST技術セミナーの事務連絡以外では使用しません。
+  <form method="POST" action="entry.cgi">
+    <input type="password" name="pass"><input type="submit" value="管理用">
+    <input type="hidden" name="mode" value="admin">
+  </form>
+
+
+<P CLASS="linkbar">
+<A HREF="../index.html">戻る</A>
+</P>
+<P CLASS="copyright">
+Copyright(C) 1999-2006 Consortium for Embedded System Technology.
+All rights reserved.
+</P>
+
+
+
+<ADDRESS>
+  Maintained by <img src="../images/cest-mail.gif">
+</ADDRESS>
+
+</BODY>
+</HTML>

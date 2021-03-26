@@ -1,0 +1,456 @@
+./config/sh3/*/sys_config.c
+
+75 #ifdef WITH_STUB
+76 #define SYS_PUT_CHAR(c) stub_putc(c)
+77 #else
+78 #define SYS_PUT_CHAR(c) scif_putc(c)
+79 #endif /* WITH_STUB */
+80
+81
+82 void
+83 sys_putc(char c)
+84 {
+85  	if (c == '\n') {
+86 	SYS_PUT_CHAR('\r');
+87 	}
+88 SYS_PUT_CHAR(c);
+89 }
+
+============================================================
+
+./config/sh3/sh3.h
+
+312	/*
+313	 *  gdb stubによる出力
+314	 */
+315	
+316 Inline int
+317 stub_putc(int c)
+318 {
+319 	Asm("mov #0x00,r0; mov %0,r4; trapa #0x3f"
+320                : /* no output */
+321	           : "r"(c)
+322	           : "r0","r4");
+323 	return(c);
+324 }
+325	
+326	
+327 /*
+328  *   SH7709A及びSH7709のSCIFへのポーリングでの出力
+329  */
+330 
+331 Inline int
+332 scif_putc(int c)
+333 {
+334    /* Wait TDRD = 1 */
+335     while((SCIF.SCSSR2 & SCSSR2_TDFE)==0);
+336 
+337     SCIF.SCFTDR2=c;
+338     SCIF.SCSSR2 = SCIF.SCSSR2 & ~SCSSR2_TDFE;
+339     return(c);
+340 }
+
+============================================================
+
+./config/sh3/sh3.h
+
+186 /*
+187  *  FIFO付きシリアルコミュニケーションインターフェース(SCIF)レジスタ
+188  *  SH7709及びSH7709Aのみ
+189  */
+190 
+191 typedef struct{
+192     IOREG  SCSMR2;
+193     IOREG  dummy1;    
+194     IOREG  SCBRR2;
+195     IOREG  dummy2;    
+196     IOREG  SCSCR2;
+197     IOREG  dummy3;        
+198     IOREG  SCFTDR2;
+199     IOREG  dummy4;            
+200     HIOREG SCSSR2;
+201     IOREG  SCFRDR2;
+202     IOREG  dummy5;                
+203     IOREG  SCFCR2;
+204     IOREG  dummy6;                    
+205     HIOREG SCFDR2;
+206 } scif;
+207 
+208 #define SCIF (*(volatile scif *)0xa4000150)
+209 
+210 #define	SCSMR2_CHR	  0x0040
+211 #define	SCSMR2_PE	  0x0020
+212 #define	SCSMR2_OE	  0x0010
+213 #define	SCSMR2_STOP	  0x0008
+214 #define	SCSMR2_CKS1	  0x0002
+215 #define	SCSMR2_CKS0	  0x0001
+216 
+217 #define SCSCR2_TIE	  0x0080
+218 #define SCSCR2_RIE	  0x0040
+219 #define SCSCR2_TE	  0x0020
+220 #define SCSCR2_RE	  0x0010
+221 #define SCSCR2_CKE1	  0x0002
+222 #define SCSCR2_CKE0	  0x0001
+223 
+224 #define SCSSR2_ER	  0x0080
+225 #define SCSSR2_TEND	  0x0040
+226 #define SCSSR2_TDFE	  0x0020
+227 #define SCSSR2_BRK	  0x0010
+228 #define SCSSR2_FER	  0x0008
+229 #define SCSSR2_PER	  0x0004
+230 #define SCSSR2_RDF	  0x0002
+231 #define SCSSR2_DR	  0x0001
+232 
+233 
+234 #define SCFCR2_RTRG1  0x0080
+235 #define SCFCR2_RTRG0  0x0040
+236 #define SCFCR2_TTRG1  0x0020
+237 #define SCFCR2_TTRG0  0x0010
+238 #define SCFCR2_MCE	  0x0008
+239 #define SCFCR2_TFRST  0x0004
+240 #define SCFCR2_RFRST  0x0002
+241 #define SCFCR2_LOOP	  0x0001
+
+============================================================
+
+./systask/serial.c
+
+345 ER_UINT
+346 serial_write(ID portid, char *buf, UINT len)
+347 {
+348 	SPCB		*spcb;
+349 	BOOL		buffer_full;
+350 	unsigned int	i;
+351 
+352 	if (sns_dpn()) {		/* コンテキストのチェック */
+353 		return(E_CTX);
+354 	}
+355 	if (!(0 <= portid && portid <= NUM_PORT)) {
+356 		return(E_PAR);		/* ポート番号のチェック */
+357 	}
+358 
+359 	spcb = get_spcb_def(portid);
+360 	if (!(spcb->init_flag)) {	/* 初期化済かのチェック */
+361 		return(E_OBJ);
+362 	}
+363 
+364 	syscall(wai_sem(spcb->out_semid));
+365 	buffer_full = FALSE;
+366 	for (i = 0; i < len; i++) {
+367 		buffer_full = serial_putc(spcb, *buf++);
+368 		if (buffer_full && i < len - 1) {
+369 			syscall(wai_sem(spcb->out_semid));
+370 		}
+371 	}
+372 	if (!buffer_full) {
+373 		syscall(sig_sem(spcb->out_semid));
+374 	}
+375 	return(len);
+376 }
+
+============================================================
+
+./systask/serial.c
+
+107 #define get_spcb(portid)	(&(spcb_table[(portid)-1]))
+108 #define get_spcb_def(portid)	get_spcb((portid) ? (portid) : CONSOLE_PORTID)
+
+============================================================
+
+./include/jsp_services.h
+
+064 /*
+065  *  syscallマクロ，_syscall マクロの定義
+066  */
+067 
+068 extern void	jsp_perror(const char *file, int line,
+069 				const char *expr, ER ercd);
+070 extern void	jsp_panic(const char *file, int line,
+071 				const char *expr, ER ercd);
+072 
+073 Inline ER
+074 _jsp_perror(const char *file, int line, const char *expr, ER ercd)
+075 {
+076 	if (MERCD(ercd) < 0) {
+077 		jsp_perror(file, line, expr, ercd);
+078 	}
+079 	return(ercd);
+080 }
+081 
+082 Inline ER
+083 _jsp_panic(const char *file, int line, const char *expr, ER ercd)
+084 {
+085 	if (MERCD(ercd) < 0) {
+086 		jsp_panic(file, line, expr, ercd);
+087 	}
+088 	return(ercd);
+089 }
+090 
+091 #define	syscall(s)	_jsp_perror(__FILE__, __LINE__, #s, (s));
+092 #define	_syscall(s)	_jsp_panic(__FILE__, __LINE__, #s, (s));
+
+============================================================
+
+./libjsp/jsp_perror.c
+
+038 extern char	*itron_strerror(ER ercd);
+039 
+040 void
+041 jsp_perror(const char *file, int line, const char *expr, ER ercd)
+042 {
+043 	syslog(LOG_ERR,
+044 		"%s reported by `%s' in line %d of `%s'.",
+045 		itron_strerror(ercd), expr, line, file);
+046 }
+
+
+============================================================
+
+./config/sh3/cpu_config.h
+
+097 /*
+098  *  現在の割込みマスクの読出し
+099  */
+100 Inline UW
+101 current_intmask()
+102 {
+103 	return(current_sr() & 0x000000f0);
+104 }
+
+
+115 /*
+116  *  システム状態参照
+117  */
+118 
+119 Inline BOOL
+120 sense_context()
+121 {
+122     UW  nest;
+123     Asm("stc r7_bank,%0":"=r"(nest));
+124         
+125 	return(nest > 0);    
+126 }
+
+128 Inline BOOL
+129 sense_lock()
+130 {
+131 	return(current_intmask() == MAX_IPM << 4);
+132 }
+============================================================
+
+./config/sh3/cpu_insn.h
+
+039 /*
+040  *  ステータスレジスタ（SR）の現在値の読出し
+041  */
+042 Inline UW
+043 current_sr()
+044 {
+045     UW	sr;
+046     Asm("stc  sr,%0" : "=r"(sr));
+047     return(sr);
+048 }
+
+============================================================
+
+./include/syslog.h
+
+/*
+ *  setlogmask の引数を作るためのマクロ
+ */
+#define LOG_MASK(pri)	(1 << (pri))
+#define LOG_UPTO(pri)	((1 << ((pri) + 1)) - 1)
+
+============================================================
+
+./systask/serial.c
+
+317 /*
+318  *  シリアルポートへの送信
+319  */
+320 
+321 static BOOL
+322 serial_putc(SPCB *spcb, char c)
+323 {
+324 	BOOL	buffer_full;
+325 
+326 	if (c == '\n' && (spcb->ioctl & IOCTL_CRLF) != 0) {
+327 		if (serial_putc(spcb, '\r')) {
+328 			syscall(wai_sem(spcb->out_semid));
+329 		}
+330 	}
+331 
+332 	syscall(loc_cpu());
+333 	if (!(spcb->ixon_stopped) && enable_send(spcb, c)) {
+334 		buffer_full = FALSE;
+335 	}
+336 	else {
+337 		spcb->out_buffer[spcb->out_write_ptr] = c;
+338 		INC(spcb->out_write_ptr);
+339 		buffer_full = OUT_BUFFER_FULL(spcb);
+340 	}
+341 	syscall(unl_cpu());
+342 	return(buffer_full);
+343 }
+
+============================================================
+
+./systask/serial.c
+
+221 /*
+222  *  ユーティリティルーチン
+223  */
+224 
+225 Inline BOOL
+226 enable_send(SPCB *spcb, char c)
+227 {
+228 	if (!(spcb->send_enabled)) {
+229 		hw_port_sendstart(&(spcb->hwport));
+230 		spcb->send_enabled = TRUE;
+231 		if (hw_port_putready(&(spcb->hwport))) {
+232 			hw_port_putchar(&(spcb->hwport), c);
+233 			return(TRUE);
+234 		}
+235 	}
+236 	return(FALSE);
+237 }
+
+============================================================
+
+./config/sh3/rsh3/hw_serial.h
+
+208 Inline void
+209 hw_port_sendstart(HWPORT *p)
+210 {
+211     if (!(p->sendflag)) {
+212         SCI1.SCSCR1 |= SCSCR1_TIE;   /* 送信割り込み要求を許可 */
+213         p->sendflag = 1;
+214     }
+215 }
+
+174 /*
+175  *  文字を送信できるか？
+176  */
+177 Inline BOOL
+178 hw_port_putready(HWPORT *p)
+179 {
+180     return((SCI1.SCSSR1 & SCSSR1_TDFE) !=0);
+181 }
+
+
+195 /*
+196  *  送信する文字の書き込み
+197  */
+198 Inline void
+199 hw_port_putchar(HWPORT *p, byte c)
+200 {
+201     SCI1.SCFTDR1=c;
+202     SCI1.SCSSR1 &= ~(SCSSR1_TDFE |SCSSR1_TEND);  
+203 }
+
+============================================================
+
+./sh3/ms7709ase01/hw_serial.h
+
+200 /*
+201  *  送信制御関数
+202  */
+203 Inline void
+204 hw_port_sendstart(HWPORT *p)
+205 {
+206     if (!(p->sendflag)) {
+207         /* 送信割り込み要求を許可 */
+208         *SMSC_SCI0_IER = (((*SMSC_SCI0_IER >> 8) | 0x02) << 8);   
+209         p->sendflag = 1;
+210     }
+211 }
+
+173 /*
+174  *  文字を送信できるか？
+175  */
+176 Inline BOOL
+177 hw_port_putready(HWPORT *p)
+178 {
+179 	return(((*SMSC_SCI0_LSR >> 8) & 0x60) != 0);
+180 }
+
+191 /*
+192  *  送信する文字の書き込み
+193  */
+194 Inline void
+195 hw_port_putchar(HWPORT *p, byte c)
+196 {
+197     *SMSC_SCI0_THR = c << 8;
+198 }
+
+
+============================================================
+
+./sh3/dvesh7700/hw_serial.h
+
+201 /*
+202  *  送信制御関数
+203  */
+204 Inline void
+205 hw_port_sendstart(HWPORT *p)
+206 {
+207     if (!(p->sendflag)) {
+208         SCI.SCSCR |= SCSCR_TIE;   /* 送信割り込み要求を許可 */
+209         p->sendflag = 1;
+210     }
+211 }
+
+170 /*
+171  *  文字を送信できるか？
+172  */
+173 Inline BOOL
+174 hw_port_putready(HWPORT *p)
+175 {
+176   return((SCI.SCSSR & SCSSR_TDRE) !=0);
+177 }
+
+191 /*
+192  *  送信する文字の書き込み
+193  */ 
+194 Inline void
+195 hw_port_putchar(HWPORT *p, byte c)
+196 {
+197     SCI.SCTDR=c;
+198     SCI.SCSSR &= ~(SCSSR_TDRE |SCSSR_TEND);
+199 }
+
+
+============================================================
+
+./sh3/card_e09a/hw_serial.h
+
+180 /*
+181  *  送信制御関数
+182  */
+183 Inline void
+184 hw_port_sendstart(HWPORT *p)
+185 {
+186     if (!(p->sendflag)) {
+187         CARD_E09A_SERIAL.IE |= IER_ETBEI; /* 送信割り込み要求を許可 */
+188         p->sendflag = 1;
+189 	}
+190 }
+
+153 /*
+154  *  文字を送信できるか？
+155  */
+156 Inline BOOL
+157 hw_port_putready(HWPORT *p)
+158 {
+159   return((CARD_E09A_SERIAL.LS & 0x0060) != 0);
+160 }
+
+171 /*
+172  *  送信する文字の書き込み
+173  */
+174 Inline void
+175 hw_port_putchar(HWPORT *p, byte c)
+176 {
+177   CARD_E09A_SERIAL.data=c;
+178 }
+179 

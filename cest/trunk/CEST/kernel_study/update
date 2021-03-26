@@ -1,0 +1,3 @@
+#!/bin/sh
+rcp * honda@vega:/home/httpd/htdocs/CEST/kernel_study/
+

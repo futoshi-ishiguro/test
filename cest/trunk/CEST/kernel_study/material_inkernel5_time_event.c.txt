@@ -1,0 +1,423 @@
+     1	/*
+     2	 *  TOPPERS/JSP Kernel
+     3	 *      Toyohashi Open Platform for Embedded Real-Time Systems/
+     4	 *      Just Standard Profile Kernel
+     5	 * 
+     6	 *  Copyright (C) 2000 by Embedded and Real-Time Systems Laboratory
+     7	 *                              Toyohashi Univ. of Technology, JAPAN
+     8	 * 
+     9	 *  上記著作権者は，以下の条件を満たす場合に限り，本ソフトウェア（本ソ
+    10	 *  フトウェアを改変したものを含む．以下同じ）を使用・複製・改変・再配
+    11	 *  布（以下，利用と呼ぶ）することを無償で許諾する．
+    12	 *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+    13	 *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+    14	 *      スコード中に含まれていること．
+    15	 *  (2) 本ソフトウェアをバイナリコードの形または機器に組み込んだ形で利
+    16	 *      用する場合には，次のいずれかの条件を満たすこと．
+    17	 *    (a) 利用に伴うドキュメント（利用者マニュアルなど）に，上記の著作
+    18	 *        権表示，この利用条件および下記の無保証規定を掲載すること．
+    19	 *    (b) 利用の形態を，別に定める方法によって，上記著作権者に報告する
+    20	 *        こと．
+    21	 *  (3) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+    22	 *      害からも，上記著作権者を免責すること．
+    23	 * 
+    24	 *  本ソフトウェアは，無保証で提供されているものである．上記著作権者は，
+    25	 *  本ソフトウェアに関して，その適用可能性も含めて，いかなる保証も行わ
+    26	 *  ない．また，本ソフトウェアの利用により直接的または間接的に生じたい
+    27	 *  かなる損害に関しても，その責任を負わない．
+    28	 * 
+    29	 *  @(#) $Id: time_event.c,v 1.1 2000/11/14 14:44:21 hiro Exp $
+    30	 */
+    31	
+    32	/*
+    33	 *	タイムイベント管理モジュール
+    34	 */
+    35	
+    36	#include "jsp_kernel.h"
+    37	#include "check.h"
+    38	#include "time_event.h"
+    39	
+    40	/*
+    41	 *  現在のシステム時刻（単位: ミリ秒）
+    42	 *
+    43	 *  厳密には，前のタイムティックのシステム時刻．
+    44	 */
+    45	SYSTIM	current_time;
+    46	
+    47	/*
+    48	 *  次のタイムティックのシステム時刻（単位: 1ミリ秒）
+    49	 */
+    50	SYSTIM	next_time;
+    51	
+    52	/*
+    53	 *  システム時刻積算用変数（単位: 1/TIM_DENOミリ秒）
+    54	 */
+    55	#if TIC_DENO != 1
+    56	UINT	next_subtime;
+    57	#endif /* TIC_DENO != 1 */
+    58	
+    59	/*
+    60	 *  相対時間のベース時刻（単位: 1ミリ秒）
+    61	 */
+    62	#if TIC_DENO != 1
+    63	EVTTIM	base_time;
+    64	#endif /* TIC_DENO != 1 */
+    65	
+    66	/*
+    67	 *  タイムイベントヒープの最初の未使用領域のインデックス
+    68	 *
+    69	 *  タイムイベントヒープに登録されているタイムイベントの数に 1 を加え
+    70	 *  たものになる．
+    71	 */
+    72	static UINT	limit_index;
+    73	
+    74	/*
+    75	 *  タイムイベントヒープ操作マクロ
+    76	 */
+    77	#define	PARENT(index)	((index) >> 1)		/* 親ノードを求める */
+    78	#define	LCHILD(index)	((index) << 1)		/* 右の子ノードを求める */
+    79	#define	TMEVT_NODE(index)	(tmevt_heap[(index) - 1])
+     //==================
+     //doc/configurator.txt
+     //==================
+     //(6) タイムイベント管理に関する定義
+     //
+     //タイムイベント管理に関連して，次の定義を生成する．
+     //
+     //#include "time_event.h"
+     //TMEVTN	tmevt_heap[TNUM_TSKID + TNUM_CYCID];
+     //
+     //==================
+     //cfg/toppers.cpp
+     //==================
+     //   131  void Miscellanea::Body(MultiStream & dest)
+     //   ......
+     //   189        (*out) << "#include \"time_event.h\"" << endl <<
+     //   "TMEVTN       tmevt_heap[TNUM_TSKID + TNUM_CYCID];" << endl << endl;
+    80	
+    81	/*
+    82	 *  イベント発生時刻比較マクロ
+    83	 *
+    84	 *  イベント発生時刻は，current_time からの相対値で比較する．すなわち，
+    85	 *  current_time を最小値（最も近い時刻），current_time - 1 が最大値
+    86	 *  （最も遠い時刻）とみなして比較する．
+    87	 */
+    88	#define	EVTTIM_LT(t1, t2) (((t1) - current_time) < ((t2) - current_time))
+    89	#define	EVTTIM_LE(t1, t2) (((t1) - current_time) <= ((t2) - current_time))
+    90	
+    91	/*
+    92	 *  タイマモジュールの初期化
+    93	 */
+    94	void
+    95	tmevt_initialize()
+    96	{
+    97		limit_index = 1;
+    98		current_time = 0; 
+               // これがシステム時刻
+               // 上記 43行目によれば, "厳密には前のタイムティックのシステム
+               // 時刻．" とのこと.
+               // μITRON4.0仕様書 4.7.1 (p.240) にあるように,
+               // "システム時刻は,システム初期化時に0に初期化し"ている.
+
+    99	#if TIC_DENO == 1
+   100		next_time = current_time + TIC_NUME;
+                // タイムティックの分母が1 の場合,タイムティックの分子を
+		// そのまま足す
+   101	#else /* TIC_DENO == 1 */
+   102		next_subtime += TIC_NUME;
+                // next_subtime に 分母を足す
+   103		next_time = current_time + next_subtime / TIC_DENO;
+                // (next_subtime / TIC_DENO)は商の整数部分
+   104		next_subtime %= TIC_DENO;
+                // next_subtime に TIC_DENO で割った余りを代入する
+   105		base_time = (EVTTIM)(next_time + (next_subtime > 0 ? 1 : 0));
+                // next_subtime = next_time または next_time + 1
+   106	#endif /* TIC_DENO == 1 */
+   107	}
+   108	
+   109	/*
+   110	 *  タイムイベントの挿入位置を上向きに探索
+   111	 *
+   112	 *  時刻 time に発生するタイムイベントを挿入するノードを空けるために，
+   113	 *  ヒープの上に向かって空ノードを移動させる．移動前の空ノードの位置を 
+   114	 *  index に渡すと，移動後の空ノードの位置（すなわち挿入位置）を返す．
+   115	 */
+     //  tmevt_heap[0]              /|\
+     //  tmevt_heap[1]               |
+     //  tmevt_heap[2]               |  上向きに検索
+     //  .............               |
+     //  tmevt_heap[limit_index-1]   |
+     //
+     //  どこから上向きに検索するかは tmevt_up の第一引数(index)によって決まる
+     //  0 < index < limit_index
+   116	static UINT
+   117	tmevt_up(UINT index, EVTTIM time)
+   118	{
+   119		UINT	parent;
+   120	
+   121		while (index > 1) {
+   122			/*
+   123			 *  親ノードのイベント発生時刻の方が早い（または同じ）
+   124			 *  ならば，index が挿入位置なのでループを抜ける．
+   125			 */
+   126			parent = PARENT(index);   // parent = ((index) >> 1) ;;
+                                                  // index/2 と同じ
+   127			if (EVTTIM_LE(TMEVT_NODE(parent).time, time)) {
+   128				break;
+   129			}
+   130	
+   131			/*
+   132			 *  親ノードを index の位置に移動させる．
+   133			 */
+   134			TMEVT_NODE(index) = TMEVT_NODE(parent);
+   135			TMEVT_NODE(index).tmevtb->index = index;
+   136	
+   137			/*
+   138			 *  index を親ノードの位置に更新．
+   139			 */
+   140			index = parent;
+   141		}
+   142		return(index);
+   143	}
+     //
+     //
+     //
+     //  tmevt_heap[0]    +--TMEVTN--+<--------------------------------------+
+     //                   |  time    |                                       |
+     //                   |  *tmevtb |------------------------>+--TMEVTB--+  |
+     //                   +----------+<---------------------+  |  index   |--+
+     //                   |  time    |                      |  |*callback | 
+     //                   |  *tmevtb |------->+--TMEVTB--+  |  |   arg    |
+     //                   +----------+        | index    |--+  +----------+
+     //                   |  time    |        |*callback |                  
+     //                   |  *tmevtb |        | arg      |                   
+     //                   +----------+        +----------+
+     //                  ~~~~~~~~~~~~~~
+     //                  ~~~~~~~~~~~~~~
+     // TMEVT_NODE(index) +----------+
+     // (tmevt_heap       |  time    |
+     //      [(index)-1]) |  *tmevtb |
+     //                   +----------+
+     //
+   144	
+   145	/*
+   146	 *  タイムイベントの挿入位置を下向きに探索
+   147	 *
+   148	 *  時刻 time に発生するタイムイベントを挿入するノードを空けるために，
+   149	 *  ヒープの下に向かって空ノードを移動させる．移動前の空ノードの位置を 
+   150	 *  index に渡すと，移動後の空ノードの位置（すなわち挿入位置）を返す．
+   151	 */
+   152	static UINT
+   153	tmevt_down(UINT index, EVTTIM time)
+   154	{
+   155		UINT	child;
+   156	
+   157		while ((child = LCHILD(index)) < limit_index) {
+   158			/*
+   159			 *  左右の子ノードのイベント発生時刻を比較し，早い方の
+   160			 *  子ノードの位置を child に設定する．以下の子ノード
+   161			 *  は，ここで選ばれた方の子ノードのこと．
+   162			 */
+   163			if (child + 1 < limit_index
+   164				&& EVTTIM_LT(TMEVT_NODE(child + 1).time,
+   165					  TMEVT_NODE(child).time)) {
+   166				child = child + 1;
+   167			}
+   168	
+   169			/*
+   170			 *  子ノードのイベント発生時刻の方が遅い（または同じ）
+   171			 *  ならば，index が挿入位置なのでループを抜ける．
+   172			 */
+   173			if (EVTTIM_LE(time, TMEVT_NODE(child).time)) {
+   174				break;
+   175			}
+   176	
+   177			/*
+   178			 *  子ノードを index の位置に移動させる．
+   179			 */
+   180			TMEVT_NODE(index) = TMEVT_NODE(child);
+   181			TMEVT_NODE(index).tmevtb->index = index;
+   182	
+   183			/*
+   184			 *  index を子ノードの位置に更新．
+   185			 */
+   186			index = child;
+   187		}
+   188		return(index);
+   189	}
+   190	
+   191	/*
+   192	 * タイムイベントヒープへの登録
+   193	 *
+   194	 *  タイムイベントブロック tmevtb を，time で指定した時間が経過後にイ
+   195	 *  ベントが発生するように，タイムイベントヒープに登録する．
+   196	 */
+   197	void
+   198	tmevtb_insert(TMEVTB *tmevtb, EVTTIM time)
+   199	{
+   200		UINT	index;
+   201	
+   202		/*
+   203		 *  limit_index から上に挿入位置を探す．
+   204		 */
+   205		index = tmevt_up(limit_index, time);
+                // limit_index は初期値 1。タイムイベントが 挿入される度に
+                // カウントアップされる
+                // 現在登録されているタイムイベントの数は limit_index -1 となる
+                // ちなみにタイムイベントの登録可能数は cfg/toppers.cpp を
+                // 参照すればわかるが, TNUM_TSKID + TNUM_CYCID である
+   206	
+   207		/*
+   208		 *  タイムイベントを index の位置に挿入する．
+   209		 */ 
+   210		TMEVT_NODE(index).time = time;
+   211		TMEVT_NODE(index).tmevtb = tmevtb;
+   212		tmevtb->index = index;
+                // tmevt_heap のどこに登録されているか,tmevtb は知っている
+   213		limit_index += 1;
+   214	}
+   215	
+   216	/*
+   217	 *  タイムイベントヒープからの削除
+   218	 */
+   219	void
+   220	tmevtb_delete(TMEVTB *tmevtb)
+   221	{
+   222		UINT	index = tmevtb->index;
+   223		UINT	parent;
+   224		EVTTIM	event_time = TMEVT_NODE(limit_index - 1).time;
+   225	
+   226		/*
+   227		 *  削除したノードの位置に最後のノード（limit_index - 1の位置
+   228		 *  のノード）を挿入し，それを適切な位置へ移動させる．実際には，
+   229		 *  最後のノードを実際に挿入するのではなく，削除したノードの位
+   230		 *  置が空ノードになるので，最後のノードを挿入すべき位置へ向け
+   231		 *  て空ノードを移動させる．
+   232		 *  最後のノードのイベント発生時刻が，削除したノードの親ノード
+   233		 *  のイベント発生時刻より前の場合には，上に向かって挿入位置を
+   234		 *  探す．そうでない場合には，下に向かって探す．
+   235		 */
+   236		if (index > 1 && EVTTIM_LT(event_time,
+   237					TMEVT_NODE(parent = PARENT(index)).time)) {
+   238			/*
+   239			 *  親ノードを index の位置に移動させる．
+   240			 */
+   241			TMEVT_NODE(index) = TMEVT_NODE(parent);
+   242			TMEVT_NODE(index).tmevtb->index = index;
+   243	
+   244			/*
+   245			 *  削除したノードの親ノードから上に向かって挿入位置を
+   246			 *  探す．
+   247			 */
+   248			index = tmevt_up(parent, event_time);
+   249		}
+   250		else {
+   251			/*
+   252			 *  削除したノードから下に向かって挿入位置を探す．
+   253			 */
+   254			index = tmevt_down(index, event_time);
+   255		}
+   256	
+   257		/*
+   258		 *  最後のノードを index の位置に挿入する．
+   259		 */ 
+   260		TMEVT_NODE(index) = TMEVT_NODE(limit_index - 1);
+   261		TMEVT_NODE(index).tmevtb->index = index;
+   262		limit_index -= 1;
+   263	}
+   264	
+   265	/*
+   266	 *  タイムイベントヒープの先頭のノードの削除
+   267	 */
+   268	Inline void
+   269	tmevtb_delete_top()
+   270	{
+   271		UINT	index;
+   272		EVTTIM	event_time = TMEVT_NODE(limit_index - 1).time;
+   273	
+   274		/*
+   275		 *  ルートノードに最後のノード（limit_index - 1の位置のノード）
+   276		 *  を挿入し，それを適切な位置へ移動させる．実際には，最後のノー
+   277		 *  ドを実際に挿入するのではなく，ルートノードが空ノードになる
+   278		 *  ので，最後のノードを挿入すべき位置へ向けて空ノードを移動さ
+   279		 *  せる．
+   280		 */
+   281		index = tmevt_down(1, event_time);
+   282	
+   283		/*
+   284		 *  最後のノードを index の位置に挿入する．
+   285		 */ 
+   286		TMEVT_NODE(index) = TMEVT_NODE(limit_index - 1);
+   287		TMEVT_NODE(index).tmevtb->index = index;
+   288		limit_index -= 1;
+   289	}
+   290	
+   291	/*
+   292	 *  タイムティックの供給
+   293	 *
+   294	 *  TIC_NUME < TIC_DENO の時は，除算を使わずに時刻の更新ができるが，ソー
+   295	 *  スコードを読みやすくにするために #if の多用を避けている．
+   296	 */
+   297	SYSCALL ER
+   298	isig_tim()
+   299	{
+   300		TMEVTB	*tmevtb;
+   301	
+   302		CHECK_INTCTX_UNL();
+   303		i_lock_cpu();
+   304	
+   305		/*
+   306		 *  next_time よりイベント発生時刻の早い（または同じ）タイムイ
+   307		 *  ベントを，タイムイベントヒープから削除し，コールバック関数
+   308		 *  を呼び出す．
+   309		 */
+     //まさにここに書かれている通りのことを実行している
+   310		while (limit_index > 1 && EVTTIM_LE(TMEVT_NODE(1).time, next_time)) {
+                //  limit_index > 1 = タイムイベントが登録されている. かつ,
+                //  TMEVT_NODE(1).time ≦ next_time
+                //  (最初のタイムイベントの実行時間が到来した )
+   311			tmevtb = TMEVT_NODE(1).tmevtb;
+   312			tmevtb_delete_top();
+                // タイムイベントをイベントヒープから削除する
+   313			(*(tmevtb->callback))(tmevtb->arg);
+                // タイムイベントを実行する
+   314		}
+   315	
+   316		/*
+   317		 *  current_time を更新する．
+   318		 */
+   319		current_time = next_time;
+   320	
+   321		/*
+   322		 *  next_time，next_subtime，base_time を更新する．
+   323		 */
+        //324-331行目は tmevt_initialize() 99-106行目と同じ
+   324	#if TIC_DENO == 1
+        // タイムティックの分母が1 の場合,タイムティックの分子をそのまま足す
+   325		next_time = current_time + TIC_NUME;  //
+   326	#else /* TIC_DENO == 1 */
+   327		next_subtime += TIC_NUME;
+        // next_subtime に 分母を足す
+   328		next_time = current_time + next_subtime / TIC_DENO;
+        // next_time = current_time + (next_subtime / TIC_DENO)の整数部分
+   329		next_subtime %= TIC_DENO;
+        // next_subtime = TIC_DENO で割った余りを代入する
+   330		base_time = (EVTTIM)(next_time + (next_subtime > 0 ? 1 : 0));
+        // next_subtime = next_time または next_time + 1
+   331	#endif /* TIC_DENO == 1 */
+   332	
+   333		i_unlock_cpu();
+   334		return(E_OK);
+   335	}
+      // μITRON4.0仕様書 4.7.1 システム時刻管理(p.240) より
+      // システム時刻管理機能に関連して,次のカーネル構成定数を定義する.
+      //	TIC_NUME	タイムティックの周期の分子
+      //	TIC_DENO	タイムティックの周期の分母
+      // これらのカーネル構成定数は,システム時刻に依存して行われる処理の
+      // おおよその時間精度をアプリケーションが参照するためのもので,
+      // TIC_NUME/TIC_DENO がタイムティックの周期を示す(時間単位はシステム
+      // 時刻と同じ). システム時刻の更新を一定周期で行わない場合,これらの
+      // カーネル構成定数には,イベントの発生時刻の時間精度が同等になる
+      // タイムティックの周期を定義する.
+
+
