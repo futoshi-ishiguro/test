@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>CESTŽQ‰ÁŽè‘±‚« ƒAƒVƒXƒ^ƒ“ƒgiˆÄ“àj</title>
+<title>CESTå‚åŠ æ‰‹ç¶šã ã‚¢ã‚·ã‚¹ã‚¿ãƒ³ãƒˆï¼ˆæ¡ˆå†…ï¼‰</title>
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
 <style type="text/css">
 <!--
@@ -26,22 +26,22 @@ function shut(){ window.close();}
   <table border="0" width="480" height="320">
   <tr>
     <td align="left" valign="top" height="50"><img src="./img/c2a.gif"></td>
-    <td align="right" valign="top"  height="50"><a href="javascript:window.close();" title="•Â‚¶‚Ü‚·"><font color="#a8a8ff">close</font><img src="./img/close.gif" border="0"></a></td>
+    <td align="right" valign="top"  height="50"><a href="javascript:window.close();" title="é–‰ã˜ã¾ã™"><font color="#a8a8ff">close</font><img src="./img/close.gif" border="0"></a></td>
   </tr>
   <tr>
     <td colspan="2">
-    <font color="#666666">‚QDCEST‚Ì‰ïˆõ‹K–ñ‚É“¯ˆÓ‚¢‚½‚¾‚¯‚Ü‚¹‚ñ‚Å‚µ‚½B<br>w•Â‚¶‚éx‚ð‰Ÿ‚µ‚ÄI—¹‚µ‚Ä‚­‚¾‚³‚¢B</font>
+    <font color="#666666">ï¼’ï¼ŽCESTã®ä¼šå“¡è¦ç´„ã«åŒæ„ã„ãŸã ã‘ã¾ã›ã‚“ã§ã—ãŸã€‚<br>ã€Žé–‰ã˜ã‚‹ã€ã‚’æŠ¼ã—ã¦çµ‚äº†ã—ã¦ãã ã•ã„ã€‚</font>
     </td>
   </tr>
   <tr>
     <td align="center">
-    <font color="#666666"><br><br><br>ŸŸŸ ƒZƒ~ƒi[‚È‚Ç‚Íˆê”Ê‚©‚ç‚ÌŽQ‰Á‚à‚Å‚«‚Ü‚·‚Ì‚Å ŸŸŸ </font>
+    <font color="#666666"><br><br><br>â—†â—†â—† ã‚»ãƒŸãƒŠãƒ¼ãªã©ã¯ä¸€èˆ¬ã‹ã‚‰ã®å‚åŠ ã‚‚ã§ãã¾ã™ã®ã§ â—†â—†â—† </font>
     </td>
   </tr>
   <tr> 
     <td align="right" valign="bottom" colspan="2">
-    <font color="#666666"> •s–¾‚È“_‚ª‚²‚´‚¢‚Ü‚µ‚½‚ç <a href="mailto:tanaka@tsc.co.jp"> CESTŽ––±‹Ç</a> ‚Ü‚Å</font>
-    <form><input type="button" value="<<–ß‚é" onclick="prev()"> &nbsp; <input type="button" value="•Â‚¶‚é" onclick="shut()"></form>
+    <font color="#666666"> ä¸æ˜Žãªç‚¹ãŒã”ã–ã„ã¾ã—ãŸã‚‰ <a href="mailto:tanaka@tsc.co.jp"> CESTäº‹å‹™å±€</a> ã¾ã§</font>
+    <form><input type="button" value="<<æˆ»ã‚‹" onclick="prev()"> &nbsp; <input type="button" value="é–‰ã˜ã‚‹" onclick="shut()"></form>
     <br>
     </td>
   </tr>

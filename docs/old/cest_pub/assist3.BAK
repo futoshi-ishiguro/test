@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>CESTŽQ‰ÁŽè‘±‚« ƒAƒVƒXƒ^ƒ“ƒgi‚R^‚Rj</title>
+<title>CESTå‚åŠ æ‰‹ç¶šã ã‚¢ã‚·ã‚¹ã‚¿ãƒ³ãƒˆï¼ˆï¼“ï¼ï¼“ï¼‰</title>
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
 <style type="text/css">
 <!--
@@ -26,23 +26,23 @@ function shut(){ window.close();}
   <table border="0" width="480" height="320">
   <tr>
     <td align="left" valign="top" height="50"><img src="./img/c2a.gif"></td>
-    <td align="right" valign="top"  height="50"><a href="javascript:window.close();" title="•Â‚¶‚Ü‚·"><font color="#a8a8ff">close</font><img src="./img/close.gif" border="0"></a></td>
+    <td align="right" valign="top"  height="50"><a href="javascript:window.close();" title="é–‰ã˜ã¾ã™"><font color="#a8a8ff">close</font><img src="./img/close.gif" border="0"></a></td>
   </tr>
   <tr>
     <td colspan="2">
-    <font color="#666666">‚RDˆÈã‚ÅCEST‚ÌŽQ‰Á\‚µž‚Ý‚ÍI—¹‚Å‚·B<br>
-    Ž––±‹Ç‚©‚çŽQ‰Á‚ÌŠm”F‚ðÜ‚è•Ô‚µ˜A—’v‚µ‚Ü‚·‚Ì‚Å˜A—‚ð‚¨‘Ò‚¿‚­‚¾‚³‚¢B<br></font>
+    <font color="#666666">ï¼“ï¼Žä»¥ä¸Šã§CESTã®å‚åŠ ç”³ã—è¾¼ã¿ã¯çµ‚äº†ã§ã™ã€‚<br>
+    äº‹å‹™å±€ã‹ã‚‰å‚åŠ ã®ç¢ºèªã‚’æŠ˜ã‚Šè¿”ã—é€£çµ¡è‡´ã—ã¾ã™ã®ã§é€£çµ¡ã‚’ãŠå¾…ã¡ãã ã•ã„ã€‚<br></font>
     </td>
   </tr>
   <tr>
     <td align="center">
-    <font color="#666666"><br>ŸŸŸ ‚ ‚è‚ª‚Æ‚¤‚²‚´‚¢‚Ü‚µ‚½ ŸŸŸ </font>
+    <font color="#666666"><br>â—†â—†â—† ã‚ã‚ŠãŒã¨ã†ã”ã–ã„ã¾ã—ãŸ â—†â—†â—† </font>
     </td>
   </tr>
   <tr> 
     <td align="right" valign="bottom" colspan="2">
-    <font color="#666666"> •s–¾‚È“_‚ª‚²‚´‚¢‚Ü‚µ‚½‚ç <a href="mailto:tanaka@tsc.co.jp"> CESTŽ––±‹Ç</a> ‚Ü‚Å</font>
-    <form><input type="button" value="<<–ß‚é" onclick="prev()"> &nbsp; <input type="button" value="•Â‚¶‚é" onclick="shut()"></form>
+    <font color="#666666"> ä¸æ˜Žãªç‚¹ãŒã”ã–ã„ã¾ã—ãŸã‚‰ <a href="mailto:tanaka@tsc.co.jp"> CESTäº‹å‹™å±€</a> ã¾ã§</font>
+    <form><input type="button" value="<<æˆ»ã‚‹" onclick="prev()"> &nbsp; <input type="button" value="é–‰ã˜ã‚‹" onclick="shut()"></form>
     <br>
     </td>
   </tr>

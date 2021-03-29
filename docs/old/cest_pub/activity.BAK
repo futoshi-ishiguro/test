@@ -7,9 +7,9 @@
 a:hover   {color: #ff3333; text-decoration: underline}
 a:visited {color: #5555ff; text-decoration: none}
 a:link    {color: #5555ff; text-decoration: none}
-body {  font-family: "�l�r �o�S�V�b�N", "Osaka"; font-size: 11pt; line-height: 14pt;  margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; background-image:     url(./img/bg.gif); background-repeat: repeat-y}
-.white-text {  font-family: "�l�r �o�S�V�b�N", "Osaka"; font-size: 9pt; color: #FFFFFF; line-height: 9pt}
-td {  font-family: "�l�r �o�S�V�b�N", "Osaka"; font-size: 10pt}
+body {  font-family: "ＭＳ Ｐゴシック", "Osaka"; font-size: 11pt; line-height: 14pt;  margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; background-image:     url(./img/bg.gif); background-repeat: repeat-y}
+.white-text {  font-family: "ＭＳ Ｐゴシック", "Osaka"; font-size: 9pt; color: #FFFFFF; line-height: 9pt}
+td {  font-family: "ＭＳ Ｐゴシック", "Osaka"; font-size: 10pt}
 .14px-font {  font-size: 14pt}
 .12px-font {  font-size: 12pt}
 .10px-font {  font-size: 10pt}
@@ -94,12 +94,12 @@ function MM_swapImage() { //v2.0
       <table width="180" border="0" cellspacing="0" cellpadding="4">
         <tr>
           <td width="15"></td>
-          <td width="150" bgcolor="#9999FF"><font color="#FFFFFF">���v���[�X��</font></td>
+          <td width="150" bgcolor="#9999FF"><font color="#FFFFFF">リプレース中</font></td>
           <td width="15"></td>
         </tr>
         <tr> 
           <td width="15"></td>
-          <td width="150" bgcolor="#CCCCFF"><font color="#FFFFFF"> �@���T�C�g��<a href="/main.html">������</a>����A�N�Z�X�ł��܂� 
+          <td width="150" bgcolor="#CCCCFF"><font color="#FFFFFF"> 　旧サイトは<a href="/main.html">こちら</a>からアクセスできます 
             </font></td>
           <td width="15"></td>
         </tr>
@@ -113,24 +113,24 @@ function MM_swapImage() { //v2.0
       <table width="180" border="0" cellspacing="0" cellpadding="4">
         <tr>
           <td width="15"></td>
-          <td width="150" bgcolor="#eebb22"><font color="#FFFFFF"><b>�Z�~�i�[����</b></font></td>
+          <td width="150" bgcolor="#eebb22"><font color="#FFFFFF"><b>セミナー協力</b></font></td>
           <td width="15"></td>
         </tr>
         <tr> 
           <td width="15"></td>
           <td width="150" bgcolor="#ddaa44">
             <font color="#FFFFFF"> 
-            �����ɋ��͂��Ă����������c�́B
-            ���͂Ɋ��ӂ������܂��B<br>
+            活動に協力していただいた団体。
+            協力に感謝いたします。<br>
             <br>
-            �E���A���^�C��OS����<br>
-            <a href="http://www.ertl.ics.tut.ac.jp">���� �g���݃��A���^�C���V�X�e��������</a><br>
+            ・リアルタイムOS入門<br>
+            <a href="http://www.ertl.ics.tut.ac.jp">＞＞ 組込みリアルタイムシステム研究室</a><br>
             <br>
-            �E�g���ݕ��� �㗬�݌v<br>
-            <a href="http://www.zipc.com/"><img src="./img/title_zipc.jpg" width="150" height="33" border="0"><br>���� CATS</a><br>
+            ・組込み分野 上流設計<br>
+            <a href="http://www.zipc.com/"><img src="./img/title_zipc.jpg" width="150" height="33" border="0"><br>＞＞ CATS</a><br>
             <br>
-            �E�I�u�W�F�N�g�u���݌v<br>
-            <a href="http://www.ogis-ri.co.jp/"><img src="./img/side_maru.gif" width="150" height="50" border="0"><br>���� �I�[�W�X��</a><br>
+            ・オブジェクト志向設計<br>
+            <a href="http://www.ogis-ri.co.jp/"><img src="./img/side_maru.gif" width="150" height="50" border="0"><br>＞＞ オージス研</a><br>
             <br><br>
             <br>
             
@@ -163,54 +163,54 @@ function MM_swapImage() { //v2.0
       <table width="460" border="0" cellspacing="0" cellpadding="0">
         <tr> 
           <td width="220" height="20"><img src="./img/dammy.gif" width="1" height="1"></td>
-          <td width="220" height="20">�@</td>
-          <td width="20" height="20">�@</td>
+          <td width="220" height="20">　</td>
+          <td width="20" height="20">　</td>
         </tr>
         <tr> 
           <td width="220"><img src="./img/acta.jpg"></td>
           <td width="220" > 
             <table width="220" border="0" cellspacing="0" cellpadding="3">
               <tr bgcolor="#FFCC66"> 
-                <td><font color="#FFFFFF"><b>�Z�p�𗬉�</b></font></td>
+                <td><font color="#FFFFFF"><b>技術交流会</b></font></td>
               </tr>
               <tr> 
                 <td>
-                  <font color="#666666">�@CEST�̎�Ȋ��������̋Z�p�𗬉�ł��B<br>
-                    �@�Z�p�𗬉�́A�������s���܂��B
-                    ��ł́A����̒�����b��񋟎҂���A
-                    �g���݂Ɋւ���b���񋟂��Ă��炢�A
-                    �Q���҂Ńf�B�X�J�b�V�������s���Ă��܂��B<br>
+                  <font color="#666666">　CESTの主な活動がこの技術交流会です。<br>
+                    　技術交流会は、毎月一回行われます。
+                    会では、会員の中から話題提供者を募り、
+                    組込みに関する話題を提供してもらい、
+                    参加者でディスカッションを行っています。<br>
                     <br>
-                    �Z�p�𗬉�̘b��ɋ����������<br>
-                    <a href="./minutes.html">���� minutes </a><br>
-                    �Ɂw�Z�p�𗬉�̉ߋ��̘b��x�̗���������܂��B
+                    技術交流会の話題に興味ある方は<br>
+                    <a href="./minutes.html">＞＞ minutes </a><br>
+                    に『技術交流会の過去の話題』の履歴があります。
                     </font>
                 </td>
               </tr>
             </table>
           </td>
-          <td width="20">�@</td>
+          <td width="20">　</td>
         </tr>
       </table>
       
       <table width="460" border="0" cellspacing="0" cellpadding="0">
         <tr> 
           <td width="220" height="40"><img src="./img/dammy.gif" width="1" height="1"></td>
-          <td width="220" height="20">�@</td>
-          <td width="20" height="20">�@</td>
+          <td width="220" height="20">　</td>
+          <td width="20" height="20">　</td>
         </tr>
         <tr> 
           <td width="220">
             <table width="220" border="0" cellspacing="0" cellpadding="3">
               <tr bgcolor="#FFCC66"> 
-                <td><font color="#FFFFFF"><b>�Z�p�Z�~�i�[</b></font></td>
+                <td><font color="#FFFFFF"><b>技術セミナー</b></font></td>
               </tr>
               <tr> 
                 <td> 
                   <font color="#666666">
-                  �@CEST�ł́A�Z�p�Z�~�i�[���J�Â��Ă��܂��B�Z�~�i�[�ł́A�g�ݍ��݃V�X�e���Ɋւ���m����Z�p�����グ�Ă��܂��B<br>
+                  　CESTでは、技術セミナーを開催しています。セミナーでは、組み込みシステムに関する知識や技術を取り上げています。<br>
                     <br>
-                    �Z�~�i�[�͉�������łȂ���ʂ���̎Q�����\�ł��̂łӂ���Ă��Q�����������B
+                    セミナーは会員だけでなく一般からの参加も可能ですのでふるってご参加ください。
                     <br>
                     </font>
                   </td>
@@ -219,7 +219,7 @@ function MM_swapImage() { //v2.0
           </td>
           <td width="220" align="center" valign="middle" ><img src="./img/seminar_image.jpg" width="220" height="165"> 
           </td>
-          <td width="20">�@</td>
+          <td width="20">　</td>
         </tr>
       </table>
     </td>

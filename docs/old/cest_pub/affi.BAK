@@ -7,10 +7,10 @@
 a:hover   {color: #995555; text-decoration: underline}
 a:visited {color: #77aa55; text-decoration: none}
 a:link    {color: #55aa55; text-decoration: none}
-body {  font-family: "‚l‚r ‚oƒSƒVƒbƒN", "Osaka"; font-size: 11pt; line-height: 14pt; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; background-image:    url(./img/bg.gif); background-repeat: repeat-y}
-.white-text {  font-family: "‚l‚r ‚oƒSƒVƒbƒN", "Osaka"; font-size: 9pt; color: #FFFFFF; line-height: 9pt}
-td {  font-family: "‚l‚r ‚oƒSƒVƒbƒN", "Osaka"; font-size: 10pt}
-th {  font-family: "‚l‚r ‚oƒSƒVƒbƒN", "Osaka"; font-size: 10pt}
+body {  font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "Osaka"; font-size: 11pt; line-height: 14pt; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; background-image:    url(./img/bg.gif); background-repeat: repeat-y}
+.white-text {  font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "Osaka"; font-size: 9pt; color: #FFFFFF; line-height: 9pt}
+td {  font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "Osaka"; font-size: 10pt}
+th {  font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "Osaka"; font-size: 10pt}
 .14px-font {  font-size: 14pt}
 .12px-font {  font-size: 12pt}
 .10px-font {  font-size: 10pt}
@@ -92,12 +92,12 @@ function MM_swapImage() { //v2.0
       <table width="180" border="0" cellspacing="0" cellpadding="4">
         <tr>
           <td width="15"></td>
-          <td width="150" bgcolor="#9999FF"><font color="#FFFFFF">ƒŠƒvƒŒ[ƒX’†</font></td>
+          <td width="150" bgcolor="#9999FF"><font color="#FFFFFF">ãƒªãƒ—ãƒ¬ãƒ¼ã‚¹ä¸­</font></td>
           <td width="15"></td>
         </tr>
         <tr> 
           <td width="15"></td>
-          <td width="150" bgcolor="#CCCCFF"><font color="#FFFFFF"> @‹ŒƒTƒCƒg‚Í<a href="/main.html">‚±‚¿‚ç</a>‚©‚çƒAƒNƒZƒX‚Å‚«‚Ü‚· 
+          <td width="150" bgcolor="#CCCCFF"><font color="#FFFFFF"> ã€€æ—§ã‚µã‚¤ãƒˆã¯<a href="/main.html">ã“ã¡ã‚‰</a>ã‹ã‚‰ã‚¢ã‚¯ã‚»ã‚¹ã§ãã¾ã™ 
             </font></td>
           <td width="15"></td>
         </tr>
@@ -118,7 +118,7 @@ function MM_swapImage() { //v2.0
           <td width="15"></td>
           <td width="150" align="left" bgcolor="#88c088">
           <font color="#ffffff">
-          &nbsp;ƒ_ƒEƒ“ƒ[ƒh
+          &nbsp;ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰
           </font>
           </td>
           <td width="15"></td>
@@ -126,7 +126,7 @@ function MM_swapImage() { //v2.0
         <tr> 
           <td width="15"></td>
           <td width="150" align="left" bgcolor="#ccffaa">
-          <a href="./img/member200005.pdf" target="_blank">¥‰ïˆõƒŠƒXƒg•\[PDF]</a>
+          <a href="./img/member200005.pdf" target="_blank">â–¼ä¼šå“¡ãƒªã‚¹ãƒˆè¡¨[PDF]</a>
           </td>
           <td width="15"></td>
         </tr>
@@ -142,7 +142,7 @@ function MM_swapImage() { //v2.0
           <td width="15"></td>
           <td width="150" align="left" bgcolor="#88c088">
           <font color="#ffffff">
-          &nbsp;CEST‚Ö‚Ì“ü‰ï•û–@
+          &nbsp;CESTã¸ã®å…¥ä¼šæ–¹æ³•
           </font>
           </td>
           <td width="15"></td>
@@ -151,13 +151,13 @@ function MM_swapImage() { //v2.0
           <td width="15"></td>
           <td width="150" align="left" bgcolor="#f0fff0">
           <font color="#666666">
-          CEST‚Å‚ÍL‚­‰ïˆõ‚ğ•åW‚µ‚Ä‚¢‚Ü‚·B<br>
+          CESTã§ã¯åºƒãä¼šå“¡ã‚’å‹Ÿé›†ã—ã¦ã„ã¾ã™ã€‚<br>
           <br>
-          “ü‰ï•û–@Ú×‚Í<br>
-          <a href="./about.html#admission">„„ ‚±‚¿‚ç</a>
+          å…¥ä¼šæ–¹æ³•è©³ç´°ã¯<br>
+          <a href="./about.html#admission">ï¼ï¼ ã“ã¡ã‚‰</a>
           <br><br>
-          ‚²•s–¾‚È“_‚Í<br>
-          <a href="mailto:tanaka@tsc.co.jp">„„ tanaka@tsc.co.jp</a>
+          ã”ä¸æ˜ãªç‚¹ã¯<br>
+          <a href="mailto:tanaka@tsc.co.jp">ï¼ï¼ tanaka@tsc.co.jp</a>
           </font>
           </td>
           <td width="15"></td>
@@ -174,16 +174,16 @@ function MM_swapImage() { //v2.0
           <td width="15"></td>
           <td width="150">
           <br>
-          <a href="http://www.adobe.co.jp/" target="_top"><img src="http://www.adobe.co.jp/images/getacro.gif"  width="88" height="31" border="0" alt="adobe ƒz[ƒ€ƒyƒCƒW‚Ö"><br>
-          &nbsp;PDFŒ`®‚ÍA‚±‚Ìƒ\ƒtƒg‚Å“Ç‚Ş‚±‚Æ‚ªo—ˆ‚Ü‚·B</a><br>
+          <a href="http://www.adobe.co.jp/" target="_top"><img src="http://www.adobe.co.jp/images/getacro.gif"  width="88" height="31" border="0" alt="adobe ãƒ›ãƒ¼ãƒ ãƒšã‚¤ã‚¸ã¸"><br>
+          &nbsp;PDFå½¢å¼ã¯ã€ã“ã®ã‚½ãƒ•ãƒˆã§èª­ã‚€ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚</a><br>
           <br>
           <a href="http://www.microsoft.com/japan/ie" target="_top" class="9px-font"><img src="http://www.microsoft.com/japan/ie/images/ieget_animated.gif" width="88" height="31" border="0" alt="get microsoft internet explorer"><br>
-            &nbsp;ƒTƒCƒg‚ÍWindows Internet Explorer 5.x‚ÉÅ“K‰»‚³‚ê‚Ä‚¢‚Ü‚·B</a><br>
+            &nbsp;ã‚µã‚¤ãƒˆã¯Windows Internet Explorer 5.xã«æœ€é©åŒ–ã•ã‚Œã¦ã„ã¾ã™ã€‚</a><br>
             <br>
             <font color="#447744">checked by MS IE5.x &amp; AOL Netscape6.x</font><br>
             <br>
-            <font color="#666666">‘¼‚ÌŠÂ‹«‚©‚çŒ©‚Ä•\¦‚ª ‚¨‚©‚µ‚¢ê‡‚ÍAe-mail: <a href="mailto:yassuuu@ertl.ics.tut.ac.jp">yassuuu@ertl.ics.tut.ac.jp</a><br>
-            ‚Ü‚Å</font></td>
+            <font color="#666666">ä»–ã®ç’°å¢ƒã‹ã‚‰è¦‹ã¦è¡¨ç¤ºãŒ ãŠã‹ã—ã„å ´åˆã¯ã€e-mail: <a href="mailto:yassuuu@ertl.ics.tut.ac.jp">yassuuu@ertl.ics.tut.ac.jp</a><br>
+            ã¾ã§</font></td>
           <td width="15"></td>
         </tr>
         <tr> 
@@ -213,7 +213,7 @@ function MM_swapImage() { //v2.0
           <td width="50"></td>
         </tr>
         <tr>
-          <td width="460" colspan="3" bgcolor="#88c088"><font color="#FFFFFF"><b>CESTQ‰Á’c‘Ì i2000”N05Œj</b></font></td>
+          <td width="460" colspan="3" bgcolor="#88c088"><font color="#FFFFFF"><b>CESTå‚åŠ å›£ä½“ ï¼ˆ2000å¹´05æœˆï¼‰</b></font></td>
         </tr>
         <tr>
           <td width="50"></td>
@@ -223,15 +223,15 @@ function MM_swapImage() { //v2.0
       </table>
       <table cellpadding="2" cellspacing="0" border="0" width="460">
       <tr>
-        <td width="150" align="center"><a href="http://www.okuma.co.jp/" target="_blank" title="ƒI[ƒNƒ}"><br><img src="./img/okuma.gif" border="0"></a></td>
+        <td width="150" align="center"><a href="http://www.okuma.co.jp/" target="_blank" title="ã‚ªãƒ¼ã‚¯ãƒ"><br><img src="./img/okuma.gif" border="0"></a></td>
         <td><font color="#666666">
-            ƒI[ƒNƒ}Š”®‰ïĞ<br>FA ƒVƒXƒeƒ€–‹Æ•”IT »•i•”ƒ\ƒtƒgŠJ”­‰Û
+            ã‚ªãƒ¼ã‚¯ãƒæ ªå¼ä¼šç¤¾<br>FA ã‚·ã‚¹ãƒ†ãƒ äº‹æ¥­éƒ¨IT è£½å“éƒ¨ã‚½ãƒ•ãƒˆé–‹ç™ºèª²
             </font>
         </td>
       </tr>
       <tr>
         <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        NCHì‹@ŠB‚ğŠJ”­E»‘¢E”Ì”„‚µ‚Ä‚¢‚é‘‡ˆêŠÑHì‹@ŠBƒ[ƒJ[‚Å‚·B
+        NCå·¥ä½œæ©Ÿæ¢°ã‚’é–‹ç™ºãƒ»è£½é€ ãƒ»è²©å£²ã—ã¦ã„ã‚‹ç·åˆä¸€è²«å·¥ä½œæ©Ÿæ¢°ãƒ¡ãƒ¼ã‚«ãƒ¼ã§ã™ã€‚
         </font></td>
       </tr>
       <tr>
@@ -241,7 +241,7 @@ function MM_swapImage() { //v2.0
       <tr>
         <td width="150" align="center"><a href="http://www.sra.co.jp/" target="_blank" title="Software Research Association"><img src="./img/sra.gif" border="0"></a></td>
         <td><font color="#666666">
-            Š”®‰ïĞ‚r‚q‚` ’†•”xĞ<br>
+            æ ªå¼ä¼šç¤¾ï¼³ï¼²ï¼¡ ä¸­éƒ¨æ”¯ç¤¾<br>
             </font>
         </td>
       </tr>
@@ -255,16 +255,16 @@ function MM_swapImage() { //v2.0
       </tr>
       <!---->
       <tr>
-        <td width="150" align="center"><a href="http://www.shinko-elec.co.jp/" target="_blank" title="_|“d‹@"><img src="./img/shinko.gif" border="0"></a></td>
+        <td width="150" align="center"><a href="http://www.shinko-elec.co.jp/" target="_blank" title="ç¥é‹¼é›»æ©Ÿ"><img src="./img/shinko.gif" border="0"></a></td>
         <td><font color="#666666">
-            _|“d‹@Š”®‰ïĞ<br>
-            ƒRƒ“ƒsƒ…[ƒ^ƒVƒXƒeƒ€‹Zp•”
+            ç¥é‹¼é›»æ©Ÿæ ªå¼ä¼šç¤¾<br>
+            ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ã‚·ã‚¹ãƒ†ãƒ æŠ€è¡“éƒ¨
             </font>
         </td>
       </tr>
       <tr>
         <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        _|“d‹@
+        ç¥é‹¼é›»æ©Ÿ
         </font></td>
       </tr>
       <tr>
@@ -272,16 +272,16 @@ function MM_swapImage() { //v2.0
       </tr>
       <!---->
       <tr>
-        <td width="150" align="center"><a href="http://www.sinto.co.jp/" target="_blank" title="V“ŒH‹Æ"><img src="./img/sinto.gif" border="0"></a></td>
+        <td width="150" align="center"><a href="http://www.sinto.co.jp/" target="_blank" title="æ–°æ±å·¥æ¥­"><img src="./img/sinto.gif" border="0"></a></td>
         <td><font color="#666666">
-            V“ŒH‹ÆŠ”®‰ïĞ<br>
-            ƒƒJƒgƒ–‹Æ•”
+            æ–°æ±å·¥æ¥­æ ªå¼ä¼šç¤¾<br>
+            ãƒ¡ã‚«ãƒˆãƒ­äº‹æ¥­éƒ¨
             </font>
         </td>
       </tr>
       <tr>
         <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        V“ŒH‹Æ
+        æ–°æ±å·¥æ¥­
         </font></td>
       </tr>
       <tr>
@@ -289,16 +289,16 @@ function MM_swapImage() { //v2.0
       </tr>
       <!---->
       <tr>
-        <td width="150" align="center"><a href="http://www.sofix-nagoya.co.jp/" target="_blank" title="ƒ\ƒtƒBƒbƒNƒX–¼ŒÃ‰®"><img src="./img/sofix.gif" border="0"></a></td>
+        <td width="150" align="center"><a href="http://www.sofix-nagoya.co.jp/" target="_blank" title="ã‚½ãƒ•ã‚£ãƒƒã‚¯ã‚¹åå¤å±‹"><img src="./img/sofix.gif" border="0"></a></td>
         <td><font color="#666666">
-            Š”®‰ïĞ ƒ\ƒtƒBƒbƒNƒX–¼ŒÃ‰®<br>
-            ŠJ”­•”
+            æ ªå¼ä¼šç¤¾ ã‚½ãƒ•ã‚£ãƒƒã‚¯ã‚¹åå¤å±‹<br>
+            é–‹ç™ºéƒ¨
             </font>
         </td>
       </tr>
       <tr>
         <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        ƒ\ƒtƒBƒbƒNƒX–¼ŒÃ‰®
+        ã‚½ãƒ•ã‚£ãƒƒã‚¯ã‚¹åå¤å±‹
         </font></td>
       </tr>
       <tr>
@@ -306,16 +306,16 @@ function MM_swapImage() { //v2.0
       </tr>
       <!---->
       <tr>
-        <td width="150" align="center"><a href="http://www.denso.co.jp/" target="_blank" title="ƒfƒ“ƒ\["><img src="./img/denso.gif" border="0"></a></td>
+        <td width="150" align="center"><a href="http://www.denso.co.jp/" target="_blank" title="ãƒ‡ãƒ³ã‚½ãƒ¼"><img src="./img/denso.gif" border="0"></a></td>
         <td><font color="#666666">
-            Š”®‰ïĞ ƒfƒ“ƒ\[<br>
-            ˆÀ‘S‘–s‹Zp‚R •”
+            æ ªå¼ä¼šç¤¾ ãƒ‡ãƒ³ã‚½ãƒ¼<br>
+            å®‰å…¨èµ°è¡ŒæŠ€è¡“ï¼“ éƒ¨
             </font>
         </td>
       </tr>
       <tr>
         <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        ƒfƒ“ƒ\[
+        ãƒ‡ãƒ³ã‚½ãƒ¼
         </font></td>
       </tr>
       <tr>
@@ -323,15 +323,15 @@ function MM_swapImage() { //v2.0
       </tr>
       <!---->
       <tr>
-        <td width="150" align="center"><a href="http://www.dcinc.co.jp/" target="_blank" title="ƒfƒ“ƒ\[ƒNƒŠƒGƒCƒg"><img src="./img/dcr.gif" border="0"></a></td>
+        <td width="150" align="center"><a href="http://www.dcinc.co.jp/" target="_blank" title="ãƒ‡ãƒ³ã‚½ãƒ¼ã‚¯ãƒªã‚¨ã‚¤ãƒˆ"><img src="./img/dcr.gif" border="0"></a></td>
         <td><font color="#666666">
-            Š”®‰ïĞ ƒfƒ“ƒ\[ƒNƒŠƒGƒCƒg<br>
+            æ ªå¼ä¼šç¤¾ ãƒ‡ãƒ³ã‚½ãƒ¼ã‚¯ãƒªã‚¨ã‚¤ãƒˆ<br>
             </font>
         </td>
       </tr>
       <tr>
         <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        ƒfƒ“ƒ\[ƒNƒŠƒGƒCƒg
+        ãƒ‡ãƒ³ã‚½ãƒ¼ã‚¯ãƒªã‚¨ã‚¤ãƒˆ
         </font></td>
       </tr>
       <tr>
@@ -339,96 +339,15 @@ function MM_swapImage() { //v2.0
       </tr>
       <!---->
       <tr>
-        <td width="150" align="center"><a href="http://www.tytlabs.co.jp/" target="_blank" title="–L“c’†‰›Œ¤‹†Š"><img src="./img/ttylab.gif" border="0"></a></td>
+        <td width="150" align="center"><a href="http://www.tytlabs.co.jp/" target="_blank" title="è±Šç”°ä¸­å¤®ç ”ç©¶æ‰€"><img src="./img/ttylab.gif" border="0"></a></td>
         <td><font color="#666666">
-            Š”®‰ïĞ –L“c’†‰›Œ¤‹†Š<br>
+            æ ªå¼ä¼šç¤¾ è±Šç”°ä¸­å¤®ç ”ç©¶æ‰€<br>
             </font>
         </td>
       </tr>
       <tr>
         <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        –L“c’†‰›Œ¤‹†Š
-        </font></td>
-      </tr>
-      <tr>
-        <td colspan="2">&nbsp;</td>
-      </tr>
-      <!---->
-      <!---->
-      <tr>
-        <td width="150" align="center"><a href="" target="_blank" title="–L‹´ƒeƒNƒmƒTƒCƒGƒ“ƒX"><img src="./img/.gif" border="0"></a></td>
-        <td><font color="#666666">
-            Š”®‰ïĞ –L‹´ƒeƒNƒmƒTƒCƒGƒ“ƒX<br>
-            </font>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        –L‹´ƒeƒNƒmƒTƒCƒGƒ“ƒX
-        </font></td>
-      </tr>
-      <tr>
-        <td colspan="2">&nbsp;</td>
-      </tr>
-      <!---->
-      <tr>
-        <td width="150" align="center"><a href="" target="_blank" title="¼“‡"><img src="./img/.gif" border="0"></a></td>
-        <td><font color="#666666">
-            ¼“‡ Š”®‰ïĞ <br>
-            </font>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        ¼“‡
-        </font></td>
-      </tr>
-      <tr>
-        <td colspan="2">&nbsp;</td>
-      </tr>
-      <!---->
-      <tr>
-        <td width="150" align="center"><a href="" target="_blank" title="ƒ~ƒmƒ‹ƒ^"><img src="./img/.gif" border="0"></a></td>
-        <td><font color="#666666">
-            ƒ~ƒmƒ‹ƒ^ Š”®‰ïĞ <br>
-            </font>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        ƒ~ƒmƒ‹ƒ^
-        </font></td>
-      </tr>
-      <tr>
-        <td colspan="2">&nbsp;</td>
-      </tr>
-      <!---->
-      <tr>
-        <td width="150" align="center"><a href="" target="_blank" title="ƒ„ƒ}ƒn"><img src="./img/.gif" border="0"></a></td>
-        <td><font color="#666666">
-            ƒ„ƒ}ƒn Š”®‰ïĞ <br>
-            </font>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        ƒ„ƒ}ƒn
-        </font></td>
-      </tr>
-      <tr>
-        <td colspan="2">&nbsp;</td>
-      </tr>
-      <!---->
-      <tr>
-        <td width="150" align="center"><a href="" target="_blank" title="ƒAƒCƒVƒ“¸‹@"><img src="./img/.gif" border="0"></a></td>
-        <td><font color="#666666">
-            ƒAƒCƒVƒ“¸‹@ Š”®‰ïĞ <br>
-            </font>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        ƒAƒCƒVƒ“¸‹@
+        è±Šç”°ä¸­å¤®ç ”ç©¶æ‰€
         </font></td>
       </tr>
       <tr>
@@ -437,15 +356,96 @@ function MM_swapImage() { //v2.0
       <!---->
       <!---->
       <tr>
-        <td width="150" align="center"><a href="" target="_blank" title="ƒAƒCƒVƒ“ƒGƒBƒ_ƒuƒŠƒ…"><img src="./img/.gif" border="0"></a></td>
+        <td width="150" align="center"><a href="" target="_blank" title="è±Šæ©‹ãƒ†ã‚¯ãƒã‚µã‚¤ã‚¨ãƒ³ã‚¹"><img src="./img/.gif" border="0"></a></td>
         <td><font color="#666666">
-             ƒAƒCƒVƒ“ƒGƒBƒ_ƒuƒŠƒ… Š”®‰ïĞ <br>
+            æ ªå¼ä¼šç¤¾ è±Šæ©‹ãƒ†ã‚¯ãƒã‚µã‚¤ã‚¨ãƒ³ã‚¹<br>
             </font>
         </td>
       </tr>
       <tr>
         <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
-        ƒAƒCƒVƒ“ƒGƒBƒ_ƒuƒŠƒ…
+        è±Šæ©‹ãƒ†ã‚¯ãƒã‚µã‚¤ã‚¨ãƒ³ã‚¹
+        </font></td>
+      </tr>
+      <tr>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+      <!---->
+      <tr>
+        <td width="150" align="center"><a href="" target="_blank" title="è¥¿å³¶"><img src="./img/.gif" border="0"></a></td>
+        <td><font color="#666666">
+            è¥¿å³¶ æ ªå¼ä¼šç¤¾ <br>
+            </font>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
+        è¥¿å³¶
+        </font></td>
+      </tr>
+      <tr>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+      <!---->
+      <tr>
+        <td width="150" align="center"><a href="" target="_blank" title="ãƒŸãƒãƒ«ã‚¿"><img src="./img/.gif" border="0"></a></td>
+        <td><font color="#666666">
+            ãƒŸãƒãƒ«ã‚¿ æ ªå¼ä¼šç¤¾ <br>
+            </font>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
+        ãƒŸãƒãƒ«ã‚¿
+        </font></td>
+      </tr>
+      <tr>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+      <!---->
+      <tr>
+        <td width="150" align="center"><a href="" target="_blank" title="ãƒ¤ãƒãƒ"><img src="./img/.gif" border="0"></a></td>
+        <td><font color="#666666">
+            ãƒ¤ãƒãƒ æ ªå¼ä¼šç¤¾ <br>
+            </font>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
+        ãƒ¤ãƒãƒ
+        </font></td>
+      </tr>
+      <tr>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+      <!---->
+      <tr>
+        <td width="150" align="center"><a href="" target="_blank" title="ã‚¢ã‚¤ã‚·ãƒ³ç²¾æ©Ÿ"><img src="./img/.gif" border="0"></a></td>
+        <td><font color="#666666">
+            ã‚¢ã‚¤ã‚·ãƒ³ç²¾æ©Ÿ æ ªå¼ä¼šç¤¾ <br>
+            </font>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
+        ã‚¢ã‚¤ã‚·ãƒ³ç²¾æ©Ÿ
+        </font></td>
+      </tr>
+      <tr>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+      <!---->
+      <!---->
+      <tr>
+        <td width="150" align="center"><a href="" target="_blank" title="ã‚¢ã‚¤ã‚·ãƒ³ã‚¨ã‚£ãƒ€ãƒ–ãƒªãƒ¥"><img src="./img/.gif" border="0"></a></td>
+        <td><font color="#666666">
+             ã‚¢ã‚¤ã‚·ãƒ³ã‚¨ã‚£ãƒ€ãƒ–ãƒªãƒ¥ æ ªå¼ä¼šç¤¾ <br>
+            </font>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" bgcolor="#f0fff0"><font color="#666666">
+        ã‚¢ã‚¤ã‚·ãƒ³ã‚¨ã‚£ãƒ€ãƒ–ãƒªãƒ¥
         </font></td>
       </tr>
       <tr>

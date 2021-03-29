@@ -7,10 +7,10 @@
 a:hover   {color: #ff00ff; text-decoration: underline}
 a:visited {color: #ee77ee; text-decoration: none}
 a:link    {color: #dd55aa; text-decoration: none}
-body {  font-family: "‚l‚r ‚oƒSƒVƒbƒN", "Osaka"; font-size: 11pt; line-height: 14pt; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; background-image:    url(./img/bg.gif); background-repeat: repeat-y}
-.white-text {  font-family: "‚l‚r ‚oƒSƒVƒbƒN", "Osaka"; font-size: 9pt; color: #FFFFFF; line-height: 9pt}
-td {  font-family: "‚l‚r ‚oƒSƒVƒbƒN", "Osaka"; font-size: 10pt}
-th {  font-family: "‚l‚r ‚oƒSƒVƒbƒN", "Osaka"; font-size: 10pt}
+body {  font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "Osaka"; font-size: 11pt; line-height: 14pt; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; background-image:    url(./img/bg.gif); background-repeat: repeat-y}
+.white-text {  font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "Osaka"; font-size: 9pt; color: #FFFFFF; line-height: 9pt}
+td {  font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "Osaka"; font-size: 10pt}
+th {  font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "Osaka"; font-size: 10pt}
 .14px-font {  font-size: 14pt}
 .12px-font {  font-size: 12pt}
 .10px-font {  font-size: 10pt}
@@ -93,12 +93,12 @@ function MM_swapImage() { //v2.0
       <table width="180" border="0" cellspacing="0" cellpadding="4">
         <tr>
           <td width="15"></td>
-          <td width="150" bgcolor="#9999FF"><font color="#FFFFFF">ƒŠƒvƒŒ[ƒX’†</font></td>
+          <td width="150" bgcolor="#9999FF"><font color="#FFFFFF">ãƒªãƒ—ãƒ¬ãƒ¼ã‚¹ä¸­</font></td>
           <td width="15"></td>
         </tr>
         <tr> 
           <td width="15"></td>
-          <td width="150" bgcolor="#CCCCFF"><font color="#FFFFFF"> @‹ŒƒTƒCƒg‚Í<a href="/main.html">‚±‚¿‚ç</a>‚©‚çƒAƒNƒZƒX‚Å‚«‚Ü‚· 
+          <td width="150" bgcolor="#CCCCFF"><font color="#FFFFFF"> ã€€æ—§ã‚µã‚¤ãƒˆã¯<a href="/main.html">ã“ã¡ã‚‰</a>ã‹ã‚‰ã‚¢ã‚¯ã‚»ã‚¹ã§ãã¾ã™ 
             </font></td>
           <td width="15"></td>
         </tr>
@@ -119,16 +119,16 @@ function MM_swapImage() { //v2.0
           <td width="15"></td>
           <td width="150">
           <br>
-          <a href="http://www.adobe.co.jp/" target="_top"><img src="http://www.adobe.co.jp/images/getacro.gif"  width="88" height="31" border="0" alt="adobe ƒz[ƒ€ƒyƒCƒW‚Ö"><br>
-          &nbsp;PDFŒ`®‚ÍA‚±‚Ìƒ\ƒtƒg‚Å“Ç‚Ş‚±‚Æ‚ªo—ˆ‚Ü‚·B</a><br>
+          <a href="http://www.adobe.co.jp/" target="_top"><img src="http://www.adobe.co.jp/images/getacro.gif"  width="88" height="31" border="0" alt="adobe ãƒ›ãƒ¼ãƒ ãƒšã‚¤ã‚¸ã¸"><br>
+          &nbsp;PDFå½¢å¼ã¯ã€ã“ã®ã‚½ãƒ•ãƒˆã§èª­ã‚€ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚</a><br>
           <br>
           <a href="http://www.microsoft.com/japan/ie" target="_top" class="9px-font"><img src="http://www.microsoft.com/japan/ie/images/ieget_animated.gif" width="88" height="31" border="0" alt="get microsoft internet explorer"><br>
-            &nbsp;ƒTƒCƒg‚ÍWindows Internet Explorer 5.x‚ÉÅ“K‰»‚³‚ê‚Ä‚¢‚Ü‚·B</a><br>
+            &nbsp;ã‚µã‚¤ãƒˆã¯Windows Internet Explorer 5.xã«æœ€é©åŒ–ã•ã‚Œã¦ã„ã¾ã™ã€‚</a><br>
             <br>
             <font color="#447744">checked by MS IE5.x &amp; AOL Netscape6.x</font><br>
             <br>
-            <font color="#666666">‘¼‚ÌŠÂ‹«‚©‚çŒ©‚Ä•\¦‚ª ‚¨‚©‚µ‚¢ê‡‚ÍAe-mail: <a href="mailto:yassuuu@ertl.ics.tut.ac.jp">yassuuu@ertl.ics.tut.ac.jp</a><br>
-            ‚Ü‚Å</font></td>
+            <font color="#666666">ä»–ã®ç’°å¢ƒã‹ã‚‰è¦‹ã¦è¡¨ç¤ºãŒ ãŠã‹ã—ã„å ´åˆã¯ã€e-mail: <a href="mailto:yassuuu@ertl.ics.tut.ac.jp">yassuuu@ertl.ics.tut.ac.jp</a><br>
+            ã¾ã§</font></td>
           <td width="15"></td>
         </tr>
         <tr> 
@@ -160,7 +160,7 @@ function MM_swapImage() { //v2.0
         <tr>
           <td width="460" colspan="3" bgcolor="#ddaaff">
           <font color="#FFFFFF"><b>
-          Ÿ CESTƒƒCƒŠƒ“ƒOƒŠƒXƒg
+          â—† CESTãƒ¡ã‚¤ãƒªãƒ³ã‚°ãƒªã‚¹ãƒˆ
           </b></font>
           </td>
         </tr>
@@ -175,15 +175,15 @@ function MM_swapImage() { //v2.0
         <td width="15"></td>
         <td width="430" class="12px-LineHeight">
         <font color="#666666">
-        CESTƒƒCƒŠƒ“ƒOƒŠƒXƒg‚ÍCEST‚Ì‰ïˆõ‚ª—˜—p‚Å‚«‚éƒƒCƒŠƒ“ƒOƒŠƒXƒg‚Å‚·B<br>
-        ˆê”Ê‚É‘Î‚µ‚Ä”é–§‚Ìî•ñ‚ğCEST‰ïˆõŠÔ‚Å‹c˜_‚Å‚«‚é‚æ‚¤‚É‚·‚é‚½‚ßA
-        <font color="#ff4444"><b>‚±‚ÌƒƒCƒŠƒ“ƒOƒŠƒXƒg‚Íˆê”Ê‚Ì•û‚ÍQÆ‚·‚é‚±‚Æ‚ª‚Å‚«‚È‚¢</b></font>‚æ‚¤‚É‚È‚Á‚Ä‚¢‚Ü‚·B<br>
+        CESTãƒ¡ã‚¤ãƒªãƒ³ã‚°ãƒªã‚¹ãƒˆã¯CESTã®ä¼šå“¡ãŒåˆ©ç”¨ã§ãã‚‹ãƒ¡ã‚¤ãƒªãƒ³ã‚°ãƒªã‚¹ãƒˆã§ã™ã€‚<br>
+        ä¸€èˆ¬ã«å¯¾ã—ã¦ç§˜å¯†ã®æƒ…å ±ã‚’CESTä¼šå“¡é–“ã§è­°è«–ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹ãŸã‚ã€
+        <font color="#ff4444"><b>ã“ã®ãƒ¡ã‚¤ãƒªãƒ³ã‚°ãƒªã‚¹ãƒˆã¯ä¸€èˆ¬ã®æ–¹ã¯å‚ç…§ã™ã‚‹ã“ã¨ãŒã§ããªã„</b></font>ã‚ˆã†ã«ãªã£ã¦ã„ã¾ã™ã€‚<br>
         <br>
-        <a href="../MEMBER/ARCHIVE/index.html" target="_blank"><img src="./img/mo.gif" border="0"> „„ ‰ß‹‚ÌƒƒCƒ‹ˆê—— i—vƒpƒXƒ[ƒhj</a><br>
+        <a href="../MEMBER/ARCHIVE/index.html" target="_blank"><img src="./img/mo.gif" border="0"> ï¼ï¼ éå»ã®ãƒ¡ã‚¤ãƒ«ä¸€è¦§ ï¼ˆè¦ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ï¼‰</a><br>
         <b><font color="#ff0000">[sorry under construction!]</font></b><br>
-        ƒTƒCƒg‚Ìƒƒ“ƒeƒiƒ“ƒX’†‚Å‚·B•œ‹Aæ‚ÌƒŠƒ“ƒN‚ª³‚µ‚­İ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB<br>
+        ã‚µã‚¤ãƒˆã®ãƒ¡ãƒ³ãƒ†ãƒŠãƒ³ã‚¹ä¸­ã§ã™ã€‚å¾©å¸°å…ˆã®ãƒªãƒ³ã‚¯ãŒæ­£ã—ãè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚<br>
         <br>
-        CEST‚ÖQ‰Á‚³‚ê‚é•û‚ÅŠó–]‚³‚ê‚é•û‚ÍACESTƒƒCƒŠƒ“ƒOƒŠƒXƒg‚ÉQ‰Á‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B
+        CESTã¸å‚åŠ ã•ã‚Œã‚‹æ–¹ã§å¸Œæœ›ã•ã‚Œã‚‹æ–¹ã¯ã€CESTãƒ¡ã‚¤ãƒªãƒ³ã‚°ãƒªã‚¹ãƒˆã«å‚åŠ ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚
         </font>
         </td>
         <td width="15"></td>

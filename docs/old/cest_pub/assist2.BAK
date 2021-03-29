@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>CESTŽQ‰ÁŽè‘±‚« ƒAƒVƒXƒ^ƒ“ƒgi‚Q^‚Rj</title>
+<title>CESTå‚åŠ æ‰‹ç¶šã ã‚¢ã‚·ã‚¹ã‚¿ãƒ³ãƒˆï¼ˆï¼’ï¼ï¼“ï¼‰</title>
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
 <style type="text/css">
 <!--
@@ -26,24 +26,24 @@ function next(){ window.open("./assist3.html","child_cest","width=486,height=326
   <table border="0" width="480" height="320">
   <tr>
     <td align="left" valign="top" height="50"><img src="./img/c2a.gif"></td>
-    <td align="right" valign="top"  height="50"><a href="javascript:window.close();" title="•Â‚¶‚Ü‚·"><font color="#a8a8ff">close</font><img src="./img/close.gif" border="0"></a></td>
+    <td align="right" valign="top"  height="50"><a href="javascript:window.close();" title="é–‰ã˜ã¾ã™"><font color="#a8a8ff">close</font><img src="./img/close.gif" border="0"></a></td>
   </tr>
   <tr>
     <td colspan="2">
-<font color="#666666">‚QDˆÈ‰º‚Ì‚¢‚¸‚ê‚©‚Ì•û–@‚ÅŽQ‰Á‚ðŠó–]‚·‚éŽ|‚ðŽ––±‹Ç‚Ü‚Å‚²˜A—‚­‚¾‚³‚¢B<br><br></font>
+<font color="#666666">ï¼’ï¼Žä»¥ä¸‹ã®ã„ãšã‚Œã‹ã®æ–¹æ³•ã§å‚åŠ ã‚’å¸Œæœ›ã™ã‚‹æ—¨ã‚’äº‹å‹™å±€ã¾ã§ã”é€£çµ¡ãã ã•ã„ã€‚<br><br></font>
 <table border="1" cellpadding="4" cellspacing="0" align="center">
 <tr>
-  <th width="50%" bgcolor="#aaaaff"><font color="#ffffff">“dŽqƒƒCƒ‹</font></th>
-  <th width="50%" bgcolor="#aaaaff"><font color="#ffffff">—X‘—</font></th>
+  <th width="50%" bgcolor="#aaaaff"><font color="#ffffff">é›»å­ãƒ¡ã‚¤ãƒ«</font></th>
+  <th width="50%" bgcolor="#aaaaff"><font color="#ffffff">éƒµé€</font></th>
 </tr>
 <tr>
   <td class="12px-LineHeight">
-    <a href="apply-form.txt" target="_blank">“o˜^ƒtƒH[ƒ€</a>(txtŒ`Ž®)‚ðŠJ‚¢‚Ä•K—vŽ–€‚ð‹LÚ‚µ
-    <a href="mailto:tanaka@tsc.co.jp">‚±‚¿‚ç‚ÖƒƒCƒ‹</a>‚ð‘—M‚µ‚Ä‚­‚¾‚³‚¢B
+    <a href="apply-form.txt" target="_blank">ç™»éŒ²ãƒ•ã‚©ãƒ¼ãƒ </a>(txtå½¢å¼)ã‚’é–‹ã„ã¦å¿…è¦äº‹é …ã‚’è¨˜è¼‰ã—
+    <a href="mailto:tanaka@tsc.co.jp">ã“ã¡ã‚‰ã¸ãƒ¡ã‚¤ãƒ«</a>ã‚’é€ä¿¡ã—ã¦ãã ã•ã„ã€‚
   </td>
   <td class="12px-LineHeight">
-    <a href="apply-form.txt" target="_blank">“o˜^ƒtƒH[ƒ€</a>(txtŒ`Ž®)‚©
-    <a href="./img/apply-form.pdf" target="_blank">“o˜^ƒtƒH[ƒ€</a>(pdfŒ`Ž®)‚ðˆóü‚µ‚Ä•K—vŽ–€‚ð–„‚ßŽ––±Š‚É—X‘—‚µ‚Ä‚­‚¾‚³‚¢B<br>iŽ––±Š‚ÌŠÝ‚ÍƒtƒH[ƒ€“à‚É‹LÚ‚³‚ê‚Ä‚¢‚Ü‚·j
+    <a href="apply-form.txt" target="_blank">ç™»éŒ²ãƒ•ã‚©ãƒ¼ãƒ </a>(txtå½¢å¼)ã‹
+    <a href="./img/apply-form.pdf" target="_blank">ç™»éŒ²ãƒ•ã‚©ãƒ¼ãƒ </a>(pdfå½¢å¼)ã‚’å°åˆ·ã—ã¦å¿…è¦äº‹é …ã‚’åŸ‹ã‚äº‹å‹™æ‰€ã«éƒµé€ã—ã¦ãã ã•ã„ã€‚<br>ï¼ˆäº‹å‹™æ‰€ã®æ‰€åœ¨ã¯ãƒ•ã‚©ãƒ¼ãƒ å†…ã«è¨˜è¼‰ã•ã‚Œã¦ã„ã¾ã™ï¼‰
   </td>
 </tr>
 </table>
@@ -51,7 +51,7 @@ function next(){ window.open("./assist3.html","child_cest","width=486,height=326
   </tr>
   <tr> 
     <td align="right" valign="bottom" colspan="2">
-    <form><input type="button" value="<<–ß‚é" onclick="prev()"> &nbsp; <input type="button" value="i‚Þ >>" onclick="next()"></form>
+    <form><input type="button" value="<<æˆ»ã‚‹" onclick="prev()"> &nbsp; <input type="button" value="é€²ã‚€ >>" onclick="next()"></form>
     <br>
     </td>
   </tr>

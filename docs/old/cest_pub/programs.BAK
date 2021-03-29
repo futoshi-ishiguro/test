@@ -7,9 +7,9 @@
 a:hover   {color: #ff9999; text-decoration: underline}
 a:visited {color: #5555ff; text-decoration: none}
 a:link    {color: #9999ff; text-decoration: none}
-body {  font-family: "‚l‚r ‚oƒSƒVƒbƒN", "Osaka"; font-size: 11pt; line-height: 14pt; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; background-image:    url(./img/bg.gif); background-repeat: repeat-y}
-.white-text {  font-family: "‚l‚r ‚oƒSƒVƒbƒN", "Osaka"; font-size: 9pt; color: #FFFFFF; line-height: 9pt}
-td {  font-family: "‚l‚r ‚oƒSƒVƒbƒN", "Osaka"; font-size: 10pt}
+body {  font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "Osaka"; font-size: 11pt; line-height: 14pt; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; background-image:    url(./img/bg.gif); background-repeat: repeat-y}
+.white-text {  font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "Osaka"; font-size: 9pt; color: #FFFFFF; line-height: 9pt}
+td {  font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "Osaka"; font-size: 10pt}
 .14px-font {  font-size: 14pt}
 .12px-font {  font-size: 12pt}
 .10px-font {  font-size: 10pt}
@@ -91,12 +91,12 @@ function MM_swapImage() { //v2.0
       <table width="180" border="0" cellspacing="0" cellpadding="4">
         <tr>
           <td width="15"></td>
-          <td width="150" bgcolor="#9999FF"><font color="#FFFFFF">ƒŠƒvƒŒ[ƒX’†</font></td>
+          <td width="150" bgcolor="#9999FF"><font color="#FFFFFF">ãƒªãƒ—ãƒ¬ãƒ¼ã‚¹ä¸­</font></td>
           <td width="15"></td>
         </tr>
         <tr> 
           <td width="15"></td>
-          <td width="150" bgcolor="#CCCCFF"><font color="#FFFFFF"> @‹ŒƒTƒCƒg‚Í<a href="/main.html">‚±‚¿‚ç</a>‚©‚çƒAƒNƒZƒX‚Å‚«‚Ü‚· 
+          <td width="150" bgcolor="#CCCCFF"><font color="#FFFFFF"> ã€€æ—§ã‚µã‚¤ãƒˆã¯<a href="/main.html">ã“ã¡ã‚‰</a>ã‹ã‚‰ã‚¢ã‚¯ã‚»ã‚¹ã§ãã¾ã™ 
             </font></td>
           <td width="15"></td>
         </tr>
@@ -138,12 +138,12 @@ function MM_swapImage() { //v2.0
         <tr> 
           <td width="15"></td>
           <td width="150"><a href="http://www.microsoft.com/japan/ie" target="_top" class="9px-font"><img src="http://www.microsoft.com/japan/ie/images/ieget_animated.gif" width="88" height="31" border="0" alt="get microsoft internet explorer"><br>
-            &nbsp;ƒTƒCƒg‚ÍWindows Internet Explorer 5.x‚ÉÅ“K‰»‚³‚ê‚Ä‚¢‚Ü‚·B</a><br>
+            &nbsp;ã‚µã‚¤ãƒˆã¯Windows Internet Explorer 5.xã«æœ€é©åŒ–ã•ã‚Œã¦ã„ã¾ã™ã€‚</a><br>
             <br>
             <font color="#447744">checked by MS IE5.x &amp; AOL Netscape6.x</font><br>
             <br>
-            <font color="#666666">‘¼‚ÌŠÂ‹«‚©‚çŒ©‚Ä•\¦‚ª ‚¨‚©‚µ‚¢ê‡‚ÍAe-mail: <a href="mailto:yassuuu@ertl.ics.tut.ac.jp">yassuuu@ertl.ics.tut.ac.jp</a><br>
-            ‚Ü‚Å</font></td>
+            <font color="#666666">ä»–ã®ç’°å¢ƒã‹ã‚‰è¦‹ã¦è¡¨ç¤ºãŒ ãŠã‹ã—ã„å ´åˆã¯ã€e-mail: <a href="mailto:yassuuu@ertl.ics.tut.ac.jp">yassuuu@ertl.ics.tut.ac.jp</a><br>
+            ã¾ã§</font></td>
           <td width="15"></td>
         </tr>
         <tr> 
@@ -183,14 +183,14 @@ function MM_swapImage() { //v2.0
               </tr>
               <tr> 
                 <td width="80" class="10px-font" bgcolor="#eeeeee" rowspan="2"><font color="#666666">2000/06/04</font></td>
-                <td width="273" class="10px-font" bgcolor="#eeeeee"><font color="#666666">‹c–˜^‚Æ‘‰ï‘—¿‚Ì’Ç‰ÁB</font></td>
+                <td width="273" class="10px-font" bgcolor="#eeeeee"><font color="#666666">è­°äº‹éŒ²ã¨ç·ä¼šè³‡æ–™ã®è¿½åŠ ã€‚</font></td>
               </tr>
               <tr> 
-                <td width="273" class="10px-font" bgcolor="#eeeeee"><font color="#666666">ƒƒ“ƒo[ƒŠƒXƒg‚ÌŒöŠJ</font></td>
+                <td width="273" class="10px-font" bgcolor="#eeeeee"><font color="#666666">ãƒ¡ãƒ³ãƒãƒ¼ãƒªã‚¹ãƒˆã®å…¬é–‹</font></td>
               </tr>
               <tr> 
                 <td width="80" class="10px-font" bgcolor="#eeeeee"><font color="#666666">2000/04/30</font></td>
-                <td width="273" class="10px-font" bgcolor="#eeeeee"><font color="#666666">‹ŒƒTƒCƒg‚Ìˆê•”‚ğ·‚µ‘Ö‚¦</font></td>
+                <td width="273" class="10px-font" bgcolor="#eeeeee"><font color="#666666">æ—§ã‚µã‚¤ãƒˆã®ä¸€éƒ¨ã‚’å·®ã—æ›¿ãˆ</font></td>
               </tr>
             </table>
           </td>
@@ -220,18 +220,18 @@ function MM_swapImage() { //v2.0
           <td width="230"></td>
         </tr>
         <tr> 
-          <td width="220" class="12px-LineHeight" bgcolor="#f0f0ff"><font color="#9999FF"><b><font color="#666666">‘æ13‰ñCEST‹ZpŒğ—¬‰ï</font></b><br>
-            <font color="#666666">2000/06/09iMonjPM06:30 ` .<br>
-            <b>˜b‘è’ñ‹ŸF</b><br>
-            ‘å“í’B˜YiiŠ”jƒfƒ“ƒ\[j<br>
-            <b>ƒe[ƒ}F</b>
-            w‘g‚İƒVƒXƒeƒ€‚Ö‚ÌWeb‹Zp“™‚É‚Â‚¢‚Ä x</font></font></td>
+          <td width="220" class="12px-LineHeight" bgcolor="#f0f0ff"><font color="#9999FF"><b><font color="#666666">ç¬¬13å›CESTæŠ€è¡“äº¤æµä¼š</font></b><br>
+            <font color="#666666">2000/06/09ï¼ˆMonï¼‰PM06:30 ã€œ .<br>
+            <b>è©±é¡Œæä¾›ï¼š</b><br>
+            å¤§æ¥ é”éƒæ°ï¼ˆï¼ˆæ ªï¼‰ãƒ‡ãƒ³ã‚½ãƒ¼ï¼‰<br>
+            <b>ãƒ†ãƒ¼ãƒï¼š</b>
+            ã€çµ„è¾¼ã¿ã‚·ã‚¹ãƒ†ãƒ ã¸ã®WebæŠ€è¡“ç­‰ã«ã¤ã„ã¦ ã€</font></font></td>
           <td width="10" class="12px-LineHeight"></td>
           <td width="230" background="./img/bg1.gif" VALIGN="TOP">
           <br>
-          <font color="#666666">| Prev. |<br>
-          ‘æ12‰ñCEST‹ZpŒğ—¬‰ï<br>ƒe[ƒ}FwRhapsody•ñx<br>
-          <a href="./minutes.html">„„ ƒŒƒ|[ƒg‚Í‚±‚¿‚ç</a>
+          <font color="#666666">âˆ’ Prev. âˆ’<br>
+          ç¬¬12å›CESTæŠ€è¡“äº¤æµä¼š<br>ãƒ†ãƒ¼ãƒï¼šã€Rhapsodyå ±å‘Šã€<br>
+          <a href="./minutes.html">ï¼ï¼ ãƒ¬ãƒãƒ¼ãƒˆã¯ã“ã¡ã‚‰</a>
           </font>
           </td>
         </tr>
@@ -239,22 +239,22 @@ function MM_swapImage() { //v2.0
       <form name="">
 <font color="#666666">update-logs</font><br>
         <textarea name="history" rows="9" cols="50" wrap="VIRTUAL">
-2000/06/06 ÅIƒfƒUƒCƒ“”Å‚ÌŒöŠJ
-2000/06/04 ÅIƒfƒUƒCƒ“‚Ìhtml‚ğƒƒCƒ“ƒTƒCƒg‚É
-           ˆÚsŠJn
-           ƒƒ“ƒeƒiƒ“ƒX’S“–‚ÌŒğ‘ã€”õ
-2000/05/-- ‹ŒƒTƒCƒg‚Ìƒƒ“ƒeƒiƒ“ƒX
-2000/04/30 ƒeƒXƒgƒTƒCƒg‚ÌŒöŠJ‚ğ’†~
-2000/02/23 b’èƒfƒUƒCƒ“‚ÌVƒR[ƒh‚ğƒ[ƒJƒ‹‚É
-           ƒAƒbƒv
-2000/02/22 ˆê•”Macintosh‚©‚ç‰{——‚Å‚«‚È‚¢–â‘è‚ğ
-           ”­Œ©Bˆê•”ƒfƒUƒCƒ“‚ğƒXƒNƒ‰ƒbƒv‚É
-2000/02/17 ‹c–˜^‚ğ’Ç‰ÁB
-           ûx’†ŠÔ•ñ‚ğ’Ç‰ÁB
-2000/02/15 ‘æ“ñ‰ñCESTƒZƒ~ƒi[‚Ìî•ñ‚ğ’Ç‰ÁB
-2000/01/25 g‚Á‚Ä‚¢‚é”N‚Ì•\‹L‚ª‚QƒPƒ^‚È‚Ì‚É
-           ‹C•t‚­B
-           C³‚ÆƒŠƒjƒ…[ƒAƒ‹B‹c–˜^‚ğ’Ç‰ÁB
+2000/06/06 æœ€çµ‚ãƒ‡ã‚¶ã‚¤ãƒ³ç‰ˆã®å…¬é–‹
+2000/06/04 æœ€çµ‚ãƒ‡ã‚¶ã‚¤ãƒ³ã®htmlã‚’ãƒ¡ã‚¤ãƒ³ã‚µã‚¤ãƒˆã«
+           ç§»è¡Œé–‹å§‹
+           ãƒ¡ãƒ³ãƒ†ãƒŠãƒ³ã‚¹æ‹…å½“ã®äº¤ä»£æº–å‚™
+2000/05/-- æ—§ã‚µã‚¤ãƒˆã®ãƒ¡ãƒ³ãƒ†ãƒŠãƒ³ã‚¹
+2000/04/30 ãƒ†ã‚¹ãƒˆã‚µã‚¤ãƒˆã®å…¬é–‹ã‚’ä¸­æ­¢
+2000/02/23 æš«å®šãƒ‡ã‚¶ã‚¤ãƒ³ã®æ–°ã‚³ãƒ¼ãƒ‰ã‚’ãƒ­ãƒ¼ã‚«ãƒ«ã«
+           ã‚¢ãƒƒãƒ—
+2000/02/22 ä¸€éƒ¨Macintoshã‹ã‚‰é–²è¦§ã§ããªã„å•é¡Œã‚’
+           ç™ºè¦‹ã€‚ä¸€éƒ¨ãƒ‡ã‚¶ã‚¤ãƒ³ã‚’ã‚¹ã‚¯ãƒ©ãƒƒãƒ—ã«
+2000/02/17 è­°äº‹éŒ²ã‚’è¿½åŠ ã€‚
+           åæ”¯ä¸­é–“å ±å‘Šã‚’è¿½åŠ ã€‚
+2000/02/15 ç¬¬äºŒå›CESTã‚»ãƒŸãƒŠãƒ¼ã®æƒ…å ±ã‚’è¿½åŠ ã€‚
+2000/01/25 ä½¿ã£ã¦ã„ã‚‹å¹´ã®è¡¨è¨˜ãŒï¼’ã‚±ã‚¿ãªã®ã«
+           æ°—ä»˜ãã€‚
+           ä¿®æ­£ã¨ãƒªãƒ‹ãƒ¥ãƒ¼ã‚¢ãƒ«ã€‚è­°äº‹éŒ²ã‚’è¿½åŠ ã€‚
 </textarea></form>
     </td>
   </tr>
