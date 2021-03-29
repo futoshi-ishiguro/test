@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>CEST参加手続き アシスタント（２／３）</title>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<style type="text/css">
+<!--
+a:link    {color: #9999ff; text-decoration: none}
+a:visited {color: #7777ff; text-decoration: none}
+a:hover   {color: #55cc55; text-decoration: underline obque}
+td {  font-size: 9pt}
+th {  font-size: 9pt}
+.12px-LineHeight {  line-height: 12pt}
+-->
+</style>
+<script language="JavaScript">
+<!--
+function prev(){ window.open("./assist1.html","child_cest","width=486,height=326");}
+function next(){ window.open("./assist3.html","child_cest","width=486,height=326");}
+//-->
+</script>
+</head>
+<body bgcolor="#FFFFFF" text="#aaaabb" topmargin="3" leftmargin="3" rightmargin="3" bottommargin="3" marginwidth="3" marginheight="3">
+<table border="0" width="400" height="350">
+<tr>
+  <td align="center">
+  <table border="0" width="480" height="320">
+  <tr>
+    <td align="left" valign="top" height="50"><img src="./img/c2a.gif"></td>
+    <td align="right" valign="top"  height="50"><a href="javascript:window.close();" title="閉じます"><font color="#a8a8ff">close</font><img src="./img/close.gif" border="0"></a></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+<font color="#666666">２．以下のいずれかの方法で参加を希望する旨を事務局までご連絡ください。<br><br></font>
+<table border="1" cellpadding="4" cellspacing="0" align="center">
+<tr>
+  <th width="50%" bgcolor="#aaaaff"><font color="#ffffff">電子メイル</font></th>
+  <th width="50%" bgcolor="#aaaaff"><font color="#ffffff">郵送</font></th>
+</tr>
+<tr>
+  <td class="12px-LineHeight">
+    <a href="apply-form.txt" target="_blank">登録フォーム</a>(txt形式)を開いて必要事項を記載し
+    <a href="mailto:tanaka@tsc.co.jp">こちらへメイル</a>を送信してください。
+  </td>
+  <td class="12px-LineHeight">
+    <a href="apply-form.txt" target="_blank">登録フォーム</a>(txt形式)か
+    <a href="./img/apply-form.pdf" target="_blank">登録フォーム</a>(pdf形式)を印刷して必要事項を埋め事務所に郵送してください。<br>（事務所の所在はフォーム内に記載されています）
+  </td>
+</tr>
+</table>
+    </td>
+  </tr>
+  <tr> 
+    <td align="right" valign="bottom" colspan="2">
+    <form><input type="button" value="<<戻る" onclick="prev()"> &nbsp; <input type="button" value="進む >>" onclick="next()"></form>
+    <br>
+    </td>
+  </tr>
+  </table>
+  </td>
+</tr>
+</table>
+</body>
+</html>
